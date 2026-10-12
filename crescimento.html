@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crescimento - Meu Assistente IA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#050510;color:#fff;line-height:1.7;min-height:100vh}
+header{padding:22px 0;background:rgba(5,5,16,0.95);border-bottom:1px solid rgba(251,191,36,0.3)}
+nav{max-width:1000px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;background:linear-gradient(135deg,#fbbf24,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+main{max-width:900px;margin:0 auto;padding:45px 20px}
+h1{font-size:32px;margin-bottom:6px;background:linear-gradient(135deg,#fbbf24,#f97316,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#b0b0c0;margin-bottom:32px}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-bottom:32px}
+.cartao{background:rgba(124,58,237,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:18px;padding:28px}
+.cartao .rot{color:#b0b0c0;font-size:15px;margin-bottom:8px}
+.cartao .num{font-size:42px;font-weight:bold;color:#fbbf24}
+.cartao .sub2{color:#888;font-size:13px;margin-top:4px}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(251,191,36,0.2);border-radius:18px;padding:28px}
+.card h2{color:#f97316;margin-bottom:18px}
+.linha{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:17px}
+.linha:last-child{border:none}
+</style>
+</head>
+<body>
+<header><nav><div class="logo">Painel de Crescimento</div><div style="color:#888;font-size:13px">Meu Assistente IA</div></nav></header>
+<main>
+<h1>Crescimento do negocio</h1>
+<p class="sub">Acompanhe seus clientes e receita em tempo real.</p>
+<div class="grade">
+  <div class="cartao"><div class="rot">Total de clientes</div><div class="num" id="total">-</div><div class="sub2">cadastrados</div></div>
+  <div class="cartao"><div class="rot">Receita mensal</div><div class="num" id="receita">-</div><div class="sub2">recorrente</div></div>
+  <div class="cartao"><div class="rot">Novos hoje</div><div class="num" id="novos">-</div><div class="sub2">cadastros de hoje</div></div>
+</div>
+<div class="card">
+  <h2>Clientes por plano</h2>
+  <div class="linha"><span>Basico (R$29)</span><strong id="basico">-</strong></div>
+  <div class="linha"><span>Profissional (R$59)</span><strong id="profissional">-</strong></div>
+  <div class="linha"><span>Empresarial (R$149)</span><strong id="empresarial">-</strong></div>
+</div>
+</main>
+<script>
+const params=new URLSearchParams(location.search);
+const key=params.get('key')||'';
+fetch('https://sistema-assistente-ia.onrender.com/api/admin/resumo',{headers:{'X-Admin-Key':key}})
+.then(r=>r.json()).then(d=>{
+  if(d.erro){document.body.innerHTML='<h1 style="padding:50px;color:#ff6b6b">Acesso negado</h1>';return;}
+  document.getElementById('total').textContent=d.total_clientes;
+  document.getElementById('receita').textContent='R$ '+d.receita_mensal;
+  document.getElementById('novos').textContent=d.novos_hoje;
+  const p=d.planos||{};
+  document.getElementById('basico').textContent=p.basico||0;
+  document.getElementById('profissional').textContent=p.profissional||0;
+  document.getElementById('empresarial').textContent=p.empresarial||0;
+});
+</script>
+</body>
+</html>

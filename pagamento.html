@@ -78,5 +78,10 @@ document.getElementById('resumoValor').textContent = plano.valor;
 document.getElementById('resumoTotal').textContent = plano.valor;
 document.getElementById('btnPagamento').href = plano.link;
 </script>
-</body>
+<script>
+document.addEventListener('contextmenu', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
+document.addEventListener('dragstart', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
+document.addEventListener('copy', e => { if(window.getSelection && !window.getSelection().toString()) e.preventDefault(); });
+</script>
+<style>img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}</style></body>
 </html>
