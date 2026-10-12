@@ -36,11 +36,12 @@ h1{font-size:32px;margin-bottom:25px;background:linear-gradient(135deg,#fbbf24,#
 </main>
 <script>
 const cliente = JSON.parse(localStorage.getItem('cliente')||'{}');
-document.getElementById('nome').textContent = cliente.nome || 'Visitante';
+if(!cliente.token){ window.location.href='login.html'; }
+document.getElementById('nome').textContent = cliente.nome || '-';
 document.getElementById('plano').textContent = (cliente.plano||'basico').toUpperCase();
-const id = cliente.id || 1;
-fetch('https://sistema-assistente-ia.onrender.com/api/saldo/'+id).then(r=>r.json()).then(d=>{
-  if(d.erro) return;
+fetch('https://sistema-assistente-ia.onrender.com/api/saldo/'+cliente.id, {headers:{'Authorization':'Bearer '+cliente.token}})
+.then(r=>r.json()).then(d=>{
+  if(d.erro){ window.location.href='login.html'; return; }
   document.getElementById('usado').textContent = d.usado;
   document.getElementById('restante').textContent = d.restante + ' de ' + d.limite;
   document.getElementById('barra').style.width = Math.min(100, (d.usado/d.limite*100)) + '%';
