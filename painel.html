@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Painel - Meu Assistente IA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#050510;color:#fff;line-height:1.7;min-height:100vh}
+header{padding:20px 0;background:rgba(5,5,16,0.95);border-bottom:1px solid rgba(251,191,36,0.3)}
+nav{max-width:1000px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;background:linear-gradient(135deg,#fbbf24,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+main{max-width:680px;margin:0 auto;padding:50px 20px}
+h1{font-size:32px;margin-bottom:25px;background:linear-gradient(135deg,#fbbf24,#f97316,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.card{background:rgba(124,58,237,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:18px;padding:32px;margin-bottom:22px}
+.linha{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:17px}
+.linha:last-child{border:none}
+.destaque{color:#fbbf24;font-size:32px;font-weight:bold}
+.barra{height:18px;background:rgba(255,255,255,0.1);border-radius:12px;overflow:hidden;margin:18px 0 8px}
+.barra .preenchido{height:100%;background:linear-gradient(90deg,#7c3aed,#f97316);border-radius:12px;transition:width .5s}
+.btn{padding:13px 26px;border-radius:12px;border:none;background:linear-gradient(135deg,#7c3aed,#ec4899,#f97316);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;margin-top:12px}
+</style>
+</head>
+<body>
+<header><nav><a class="logo" href="index.html">Meu Assistente IA</a></nav></header>
+<main>
+<h1>Meu Painel de Consumo</h1>
+<div class="card">
+  <div class="linha"><span>Cliente</span><strong id="nome">-</strong></div>
+  <div class="linha"><span>Plano</span><strong id="plano">-</strong></div>
+  <div class="linha"><span>Mensagens usadas</span><span class="destaque" id="usado">0</span></div>
+  <div class="barra"><div class="preenchido" id="barra" style="width:0%"></div></div>
+  <div class="linha"><span>Restante</span><strong id="restante">-</strong></div>
+  <a class="btn" href="index.html#pricing">Fazer upgrade</a>
+</div>
+</main>
+<script>
+const cliente = JSON.parse(localStorage.getItem('cliente')||'{}');
+document.getElementById('nome').textContent = cliente.nome || 'Visitante';
+document.getElementById('plano').textContent = (cliente.plano||'basico').toUpperCase();
+const id = cliente.id || 1;
+fetch('https://sistema-assistente-ia.onrender.com/api/saldo/'+id).then(r=>r.json()).then(d=>{
+  if(d.erro) return;
+  document.getElementById('usado').textContent = d.usado;
+  document.getElementById('restante').textContent = d.restante + ' de ' + d.limite;
+  document.getElementById('barra').style.width = Math.min(100, (d.usado/d.limite*100)) + '%';
+}).catch(()=>{});
+</script>
+</body>
+</html>
