@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirme seu e-mail - Meu Agente IA</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#080b12;min-height:100vh;color:#c3ccd6}
+.bg{position:fixed;inset:0;background:url('energia.jpg') center/cover no-repeat;z-index:0}
+.veil{position:fixed;inset:0;background:radial-gradient(120% 100% at 50% 40%,rgba(8,11,18,.72),rgba(8,11,18,.96) 72%);z-index:1}
+header{position:relative;z-index:5;padding:22px 34px;display:flex;justify-content:center}
+.logo{font-size:22px;font-weight:700;text-decoration:none;color:#eef3f9;display:flex;align-items:center;gap:10px}
+.logo .raio{color:#f4c15a;font-size:25px;filter:drop-shadow(0 0 11px rgba(244,193,90,.5))}
+.logo b{color:#eef3f9}.logo span{color:#86b3c9}
+.wrap{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;padding:30px 20px 60px}
+.card{width:100%;max-width:430px;background:rgba(17,22,32,.82);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:40px 34px;box-shadow:0 40px 100px rgba(0,0,0,.55);text-align:center}
+.icon{width:64px;height:64px;border-radius:16px;background:rgba(244,193,90,.12);border:1px solid rgba(244,193,90,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.icon i{color:#f4c15a;font-size:26px}
+h1{font-size:24px;color:#eef3f9;margin-bottom:10px}
+.sub{color:#9aa7b4;font-size:15px;line-height:1.7;margin-bottom:26px}
+.code{display:flex;gap:10px;justify-content:center;margin-bottom:22px}
+.code input{width:52px;height:58px;text-align:center;font-size:22px;border-radius:11px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.035);color:#e2e8ef}
+.code input:focus{outline:none;border-color:#f4c15a}
+.btn-gold{width:100%;padding:14px;border:none;border-radius:11px;background:linear-gradient(120deg,#f4c15a,#e8a93a);color:#241700;font-size:15.5px;font-weight:700;cursor:pointer}
+.btn-gold:hover{filter:brightness(1.05)}
+.foot{margin-top:18px;font-size:14px;color:#86b3c9}.foot a{color:#86b3c9}
+</style></head><body>
+<div class="bg"></div><div class="veil"></div>
+<header><a class="logo" href="index.html"><span class="raio"><i class="fa-solid fa-bolt"></i></span><b>Meu</b> <span>Agente IA</span></a></header>
+<div class="wrap"><div class="card">
+  <div class="icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
+  <h1>Confirme seu e-mail</h1>
+  <div class="sub">Enviamos um codigo de confirmacao para o seu e-mail. Digite abaixo para abrir o cadastro e escolher seu plano.</div>
+  <div class="code">
+    <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+  </div>
+  <button class="btn-gold" onclick="location.href='cadastro-pro.html'">Confirmar e continuar</button>
+  <div class="foot">Nao recebeu? <a href="#">Reenviar codigo</a></div>
+</div></div>
+</body></html>
