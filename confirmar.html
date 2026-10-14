@@ -34,7 +34,21 @@ h1{font-size:24px;color:#eef3f9;margin-bottom:10px}
   <div class="code">
     <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
   </div>
-  <button class="btn-gold" onclick="location.href='cadastro-pro.html'">Confirmar e continuar</button>
+  <button class="btn-gold" id="btnConf">Confirmar e continuar</button>
   <div class="foot">Nao recebeu? <a href="#">Reenviar codigo</a></div>
 </div></div>
-</body></html>
+</body><script>
+  const API="https://backend-agente-x8k2.onrender.com";
+  document.getElementById('btnConf').addEventListener('click', async ()=>{
+    const email=localStorage.getItem('emailCadastro');
+    const codigo=[...document.querySelectorAll('.code input')].map(i=>i.value).join('');
+    if(!email){ location.href='criar-conta.html'; return; }
+    if(codigo.length<6){ alert('Digite o codigo de 6 digitos'); return; }
+    const btn=document.getElementById('btnConf'); btn.textContent='Confirmando...'; btn.disabled=true;
+    try{ const r=await fetch(API+'/api/confirmar-codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,codigo})});
+      const j=await r.json();
+      if(j.ok){ location.href='cadastro-pro.html'; }
+      else { alert(j.erro||'Codigo invalido'); btn.textContent='Confirmar e continuar'; btn.disabled=false; }
+    }catch(err){ alert('Erro de conexao'); btn.textContent='Confirmar e continuar'; btn.disabled=false; }
+  });
+</script></html>

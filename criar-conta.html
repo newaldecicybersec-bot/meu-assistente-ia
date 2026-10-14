@@ -55,4 +55,14 @@ h1{font-size:26px;color:#eef3f9;font-weight:700;text-align:center;letter-spacing
   <div class="foot">Ja tem conta? <a href="login.html">Entrar</a></div>
   <div class="legal">Ao continuar, voce concorda com os <a href="termos-de-uso.html">Termos de Uso</a> e a <a href="politica-de-privacidade.html">Politica de Privacidade</a>.</div>
 </div></div>
-</body></html>
+</body><script>
+      const API="https://backend-agente-x8k2.onrender.com";
+      const f=document.getElementById('formEmail')||document.querySelector('form');
+      if(f) f.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const email=(document.getElementById('email')||document.querySelector('input[type=email]')).value.trim();
+        try{ const r=await fetch(API+'/api/enviar-codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+          const j=await r.json(); if(j.ok){ localStorage.setItem('emailCadastro',email); location.href='confirmar.html'; } else alert(j.erro||'Falha'); }
+        catch(err){ alert('Erro de conexao'); }
+      });
+    </script></html>
