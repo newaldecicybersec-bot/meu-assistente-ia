@@ -104,4 +104,37 @@ app.get("/auth/google/callback", async (req, res) => {
   }
 });
 
+
+// ---------- FACEBOOK OAUTH ----------
+const FB_ID = process.env.FACEBOOK_APP_ID;
+const FB_SECRET = process.env.FACEBOOK_APP_SECRET;
+
+app.get("/auth/facebook", (_req, res) => {
+  const params = new URLSearchParams({
+    client_id: FB_ID,
+    redirect_uri: `${BASE}/auth/facebook/callback`,
+    scope: "email,public_profile",
+    response_type: "code"
+  });
+  res.redirect("https://www.facebook.com/v18.0/dialog/oauth?" + params.toString());
+});
+
+app.get("/auth/facebook/callback", async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.redirect(SITE + "/criar-conta.html?erro=sem_codigo");
+  try {
+    const tok = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?` + new URLSearchParams({
+      client_id: FB_ID, redirect_uri: `${BASE}/auth/facebook/callback`,
+      client_secret: FB_SECRET, code
+    })).then(r => r.json());
+    if (!tok.access_token) return res.redirect(SITE + "/criar-conta.html?erro=token");
+    const u = await fetch("https://graph.facebook.com/me?fields=id,name,email&access_token=" + tok.access_token).then(r => r.json());
+    const q = new URLSearchParams({ email: u.email || "", nome: u.name || "", facebook: "1" });
+    res.redirect(SITE + "/cadastro-pro.html?" + q.toString());
+  } catch (e) {
+    console.error(e);
+    res.redirect(SITE + "/criar-conta.html?erro=oauth");
+  }
+});
+
 app.listen(PORT, ()=> console.log("Servidor Meu Agente IA no ar, porta", PORT));
