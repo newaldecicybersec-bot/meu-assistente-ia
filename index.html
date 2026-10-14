@@ -134,6 +134,16 @@ h2{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.08;font-weight:700;letter-sp
 .btn-gold:hover,.btn-teal:hover{filter:brightness(1.06)}
 h2 .grad{background:linear-gradient(120deg,var(--teal),#63e9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+
+/* CANAIS */
+.channels{padding:54px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(47,224,196,.03)}
+.chan-lead{text-align:center;color:#c4d3e6;font-size:1.28rem;font-weight:300}
+.chan-lead b{color:var(--teal);font-weight:600}
+.chan-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:100px;background:var(--card);border:1px solid var(--line);color:#d6e2f0;font-weight:500;font-size:1rem;transition:.25s}
+.chip:hover{border-color:rgba(47,224,196,.4);transform:translateY(-3px);background:rgba(47,224,196,.08)}
+.chip i{font-style:normal;font-size:1.15rem}
+
 /* FOOTER */
 footer{border-top:1px solid var(--line);padding:60px 0 40px;margin-top:60px;color:var(--muted)}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
@@ -187,7 +197,7 @@ footer a:hover{color:var(--teal)}
   <div class="inner">
     <span class="eyebrow"><span class="dot"></span> Atendimento inteligente · 24 horas</span>
     <h1>O futuro do atendimento<br>é <span class="grad">Inteligente</span></h1>
-    <p class="lead">Um agente de IA que conversa com seus clientes em todos os canais — WhatsApp, Instagram, Telegram e mais — com linguagem humana, aprende com cada atendimento e nunca deixa uma mensagem sem resposta.</p>
+    <p class="lead">Transforme o atendimento com Inteligência Artificial e automação em TODAS as redes sociais — WhatsApp, Instagram, Facebook, Telegram, TikTok e mais. Atendimento 24/7, com linguagem humana.</p>
     <div class="cta">
       <a href="#cadastro" class="btn btn-gold btn-lg">Teste grátis por 7 dias</a>
       <a href="#como" class="btn btn-ghost btn-lg">Como funciona</a>
@@ -196,6 +206,25 @@ footer a:hover{color:var(--teal)}
       <div class="t"><span class="dot"></span> Simples de configurar</div>
       <div class="t"><span class="dot"></span> Sem fidelidade</div>
       <div class="t"><span class="dot"></span> Cancele quando quiser</div>
+    </div>
+  </div>
+</section>
+
+<!-- CANAIS -->
+<section class="channels" id="canais">
+  <div class="wrap">
+    <div class="chan-lead">Atendemos <b>todas as redes sociais</b> onde seus clientes estão</div>
+    <div class="chan-row">
+      <span class="chip"><i>💬</i> WhatsApp</span>
+      <span class="chip"><i>📸</i> Instagram</span>
+      <span class="chip"><i>👥</i> Facebook</span>
+      <span class="chip"><i>✈️</i> Telegram</span>
+      <span class="chip"><i>🎵</i> TikTok</span>
+      <span class="chip"><i>✖️</i> X (Twitter)</span>
+      <span class="chip"><i>💼</i> LinkedIn</span>
+      <span class="chip"><i>▶️</i> YouTube</span>
+      <span class="chip"><i>🌐</i> Chat do site</span>
+      <span class="chip"><i>📩</i> E-mail</span>
     </div>
   </div>
 </section>
