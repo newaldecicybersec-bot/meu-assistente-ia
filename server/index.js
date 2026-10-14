@@ -58,4 +58,50 @@ app.post("/api/confirmar-codigo", (req, res) => {
 app.get("/", (_req,res)=> res.json({ servico:"Meu Agente IA", status:"ok" }));
 
 const PORT = process.env.PORT || 3000;
+
+// ---------- GOOGLE OAUTH ----------
+const GOOGLE_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const BASE = process.env.BASE_URL || "https://backend-agente-x8k2.onrender.com";
+const SITE = process.env.SITE_URL || "https://omeuassistenteia.com.br";
+
+app.get("/auth/google", (_req, res) => {
+  const params = new URLSearchParams({
+    client_id: GOOGLE_ID,
+    redirect_uri: `${BASE}/auth/google/callback`,
+    response_type: "code",
+    scope: "openid email profile",
+    prompt: "select_account"
+  });
+  res.redirect("https://accounts.google.com/o/oauth2/v2/auth?" + params.toString());
+});
+
+app.get("/auth/google/callback", async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.redirect(SITE + "/criar-conta.html?erro=sem_codigo");
+  try {
+    const tok = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        code,
+        client_id: GOOGLE_ID,
+        client_secret: GOOGLE_SECRET,
+        redirect_uri: `${BASE}/auth/google/callback`,
+        grant_type: "authorization_code"
+      })
+    }).then(r => r.json());
+    if (!tok.access_token) return res.redirect(SITE + "/criar-conta.html?erro=token");
+    const u = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
+      headers: { Authorization: "Bearer " + tok.access_token }
+    }).then(r => r.json());
+    // usuario autenticado via Google -> segue para o cadastro
+    const q = new URLSearchParams({ email: u.email || "", nome: u.name || "", google: "1" });
+    res.redirect(SITE + "/cadastro-pro.html?" + q.toString());
+  } catch (e) {
+    console.error(e);
+    res.redirect(SITE + "/criar-conta.html?erro=oauth");
+  }
+});
+
 app.listen(PORT, ()=> console.log("Servidor Meu Agente IA no ar, porta", PORT));
