@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: meu-agente-ia
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: RESEND_API_KEY
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
+    healthCheckPath: /
