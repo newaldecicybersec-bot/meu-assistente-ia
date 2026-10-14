@@ -1,64 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
+<html lang="pt-BR"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrar - Meu Assistente IA</title>
+<title>Entrar - Meu Agente IA</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #05070d; color: #c3ccd6; line-height: 1.7; }
-        header { padding: 18px 0; background: rgba(7,12,20,0.92); border-bottom: 1px solid rgba(255,255,255,0.09); backdrop-filter: blur(10px); }
-        nav { max-width: 1040px; margin: 0 auto; padding: 0 22px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 22px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .logo .raio { color: #f4c15a; font-size: 25px; filter: drop-shadow(0 0 9px rgba(244,193,90,.55)); }
-        .logo b { background: linear-gradient(90deg,#fff,#cfe9ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn { padding: 11px 24px; border-radius: 24px; text-decoration: none; font-weight: bold; background: linear-gradient(120deg,#f4c15a,#e8a93a); color: #241700; box-shadow: 0 8px 26px rgba(244,193,90,.28); }
-        main { max-width: 1040px; margin: 0 auto; padding: 60px 22px; }
-        h1 { font-size: 38px; color:#c3ccd6; margin-bottom: 30px; }
-        h2 { color: #d6dfe9; font-size: 24px; margin: 35px 0 15px; }
-        p { color: #bcd4e2; margin-bottom: 15px; font-size: 17px; }
-        ul { margin: 15px 0 25px 30px; }
-        li { color: #bcd4e2; margin-bottom: 10px; font-size: 17px; }
-        strong { color: #c3ccd6; }
-        .card { background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.09); border-radius: 16px; padding: 30px; margin: 25px 0; }
-        a { color: #86b3c9; }
-        footer { padding: 35px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.09); background: rgba(4,7,12,0.9); margin-top: 60px; }
-        footer p { color: #7d97a8; font-size: 14px; margin: 6px 0; }
-    </style>
-</head>
-<body>
-<header><nav><a class="logo" href="index.html"><span class="raio">⚡</span><b>Meu Assistente IA</b></a></nav></header>
-<main>
-<h1>Entrar na sua conta</h1>
-<div class="card">
-  <label>E-mail</label>
-  <input type="email" id="email" placeholder="voce@email.com">
-  <label>Senha</label>
-  <input type="password" id="senha" placeholder="sua senha">
-  <button class="btn" onclick="entrar()">Entrar</button>
-  <div class="erro" id="erro"></div>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0e16;color:#c3ccd6;min-height:100vh}
+header{position:absolute;top:0;left:0;right:0;z-index:10;padding:20px 34px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:21px;font-weight:700;text-decoration:none;color:#eef3f9;display:flex;align-items:center;gap:10px}
+.logo .raio{color:#f4c15a;font-size:24px;filter:drop-shadow(0 0 10px rgba(244,193,90,.5))}
+.logo b{color:#eef3f9}.logo span{color:#86b3c9}
+.top-link{color:#c3ccd6;text-decoration:none;font-size:14px;font-weight:500}
+.split{display:flex;min-height:100vh}
+.hero{flex:1.1;position:relative;overflow:hidden;display:flex;align-items:center;padding:0 60px}
+.hero .bg{position:absolute;inset:0;background:url('energia.jpg') center/cover no-repeat}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,14,22,.92) 0%,rgba(10,14,22,.55) 55%,rgba(10,14,22,.75) 100%)}
+.hero .txt{position:relative;z-index:2;max-width:440px}
+.hero h1{font-size:clamp(30px,4vw,50px);color:#eef3f9;font-weight:800;line-height:1.08;letter-spacing:-1px}
+.hero p{color:#aab6c2;font-size:18px;margin-top:18px;line-height:1.7}
+.side{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 30px}
+.card{width:100%;max-width:410px;background:#121822;border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:36px 32px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.card h2{font-size:23px;color:#eef3f9;font-weight:700;text-align:center;margin-bottom:22px}
+.social{display:flex;flex-direction:column;gap:11px}
+.sbtn{display:flex;align-items:center;justify-content:center;gap:11px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);color:#c3ccd6;font-size:14.5px;font-weight:500;cursor:pointer;transition:.2s;text-decoration:none}
+.sbtn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22)}
+.sbtn i{font-size:18px;width:20px;text-align:center}
+.g{color:#ea4335}.fb{color:#1877f2}.gh{color:#e6edf3}.li{color:#0a66c2}
+.divider{display:flex;align-items:center;gap:14px;margin:20px 0;color:#6b7783;font-size:12.5px}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.1)}
+.field{margin-bottom:15px}
+.field .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.field label{font-size:13px;color:#9aa7b4}
+.field .row a{font-size:12.5px;color:#86b3c9;text-decoration:none}
+.field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:#c3ccd6;font-size:15px}
+.field input:focus{outline:none;border-color:#f4c15a}
+.btn-gold{width:100%;padding:13px;border:none;border-radius:10px;background:linear-gradient(120deg,#f4c15a,#e8a93a);color:#241700;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px}
+.foot{text-align:center;margin-top:18px;font-size:14px;color:#86b3c9}
+.foot a{color:#86b3c9}
+@media(max-width:820px){.hero{display:none}.split{padding:0}}
+</style></head><body>
+<header>
+  <a class="logo" href="index.html"><span class="raio"><i class="fa-solid fa-bolt"></i></span><b>Meu</b> <span>Agente IA</span></a>
+  <a class="top-link" href="criar-conta.html">Criar conta</a>
+</header>
+<div class="split">
+  <div class="hero"><div class="bg"></div><div class="veil"></div>
+    <div class="txt">
+      <h1>Otimo te-lo<br>de volta!</h1>
+      <p>Entre na sua conta e acompanhe seu assistente de IA trabalhando por voce.</p>
+    </div>
+  </div>
+  <div class="side"><div class="card">
+    <h2>Inicie a sessao</h2>
+    <div class="social">
+      <a class="sbtn" href="#"><i class="fa-brands fa-google g"></i> Continuar com Google</a>
+      <a class="sbtn" href="#"><i class="fa-brands fa-facebook-f fb"></i> Continuar com Facebook</a>
+      <a class="sbtn" href="#"><i class="fa-brands fa-github gh"></i> Continuar com GitHub</a>
+      <a class="sbtn" href="#"><i class="fa-brands fa-linkedin-in li"></i> Continuar com LinkedIn</a>
+    </div>
+    <div class="divider">ou entre com e-mail</div>
+    <form onsubmit="event.preventDefault();location.href='painel.html'">
+      <div class="field"><div class="row"><label>E-mail</label></div><input type="email" placeholder="voce@email.com" required></div>
+      <div class="field"><div class="row"><label>Senha</label><a href="#">Esqueci a senha</a></div><input type="password" placeholder="Sua senha" required></div>
+      <button class="btn-gold" type="submit">Iniciar sessao</button>
+    </form>
+    <div class="foot">Ainda nao tem conta? <a href="criar-conta.html">Criar conta</a></div>
+  </div></div>
 </div>
-<div class="link">Ainda nao tem conta? <a href="cadastro-pro.html">Cadastre-se</a></div>
-</main>
-<script>
-function entrar(){
-  const email=document.getElementById('email').value;
-  const senha=document.getElementById('senha').value;
-  fetch('https://sistema-assistente-ia.onrender.com/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,senha})})
-  .then(r=>r.json()).then(d=>{
-    if(d.ok){
-      localStorage.setItem('cliente', JSON.stringify({id:d.id, nome:d.nome, token:d.token}));
-      window.location.href='painel.html';
-    } else {
-      document.getElementById('erro').textContent=d.erro||'erro ao entrar';
-    }
-  }).catch(()=>{document.getElementById('erro').textContent='erro de conexao';});
-}
-</script>
-<script>
-document.addEventListener('contextmenu', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
-document.addEventListener('dragstart', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
-document.addEventListener('copy', e => { if(window.getSelection && !window.getSelection().toString()) e.preventDefault(); });
-</script>
-<style>img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}</style></body>
-</html>
+</body></html>
