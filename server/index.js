@@ -137,4 +137,39 @@ app.get("/auth/facebook/callback", async (req, res) => {
   }
 });
 
+
+// ---------- GITHUB OAUTH ----------
+const GH_ID = process.env.GITHUB_CLIENT_ID;
+const GH_SECRET = process.env.GITHUB_CLIENT_SECRET;
+
+app.get("/auth/github", (_req, res) => {
+  const params = new URLSearchParams({
+    client_id: GH_ID,
+    redirect_uri: `${BASE}/auth/github/callback`,
+    scope: "read:user user:email"
+  });
+  res.redirect("https://github.com/login/oauth/authorize?" + params.toString());
+});
+
+app.get("/auth/github/callback", async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.redirect(SITE + "/criar-conta.html?erro=sem_codigo");
+  try {
+    const tok = await fetch("https://github.com/login/oauth/access_token", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ client_id: GH_ID, client_secret: GH_SECRET, code, redirect_uri: `${BASE}/auth/github/callback` })
+    }).then(r => r.json());
+    if (!tok.access_token) return res.redirect(SITE + "/criar-conta.html?erro=token");
+    const u = await fetch("https://api.github.com/user", {
+      headers: { Authorization: "Bearer " + tok.access_token, "User-Agent": "meu-agente-ia" }
+    }).then(r => r.json());
+    const q = new URLSearchParams({ email: u.email || "", nome: u.name || u.login || "", github: "1" });
+    res.redirect(SITE + "/cadastro-pro.html?" + q.toString());
+  } catch (e) {
+    console.error(e);
+    res.redirect(SITE + "/criar-conta.html?erro=oauth");
+  }
+});
+
 app.listen(PORT, ()=> console.log("Servidor Meu Agente IA no ar, porta", PORT));
