@@ -172,4 +172,44 @@ app.get("/auth/github/callback", async (req, res) => {
   }
 });
 
+
+// ---------- LINKEDIN OAUTH ----------
+const LI_ID = process.env.LINKEDIN_CLIENT_ID;
+const LI_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
+
+app.get("/auth/linkedin", (_req, res) => {
+  const params = new URLSearchParams({
+    client_id: LI_ID,
+    redirect_uri: `${BASE}/auth/linkedin/callback`,
+    scope: "openid profile email",
+    response_type: "code"
+  });
+  res.redirect("https://www.linkedin.com/oauth/v2/authorization?" + params.toString());
+});
+
+app.get("/auth/linkedin/callback", async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.redirect(SITE + "/criar-conta.html?erro=sem_codigo");
+  try {
+    const tok = await fetch("https://www.linkedin.com/oauth/v2/accessToken", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        grant_type: "authorization_code", code,
+        redirect_uri: `${BASE}/auth/linkedin/callback`,
+        client_id: LI_ID, client_secret: LI_SECRET
+      })
+    }).then(r => r.json());
+    if (!tok.access_token) return res.redirect(SITE + "/criar-conta.html?erro=token");
+    const u = await fetch("https://api.linkedin.com/v2/userinfo", {
+      headers: { Authorization: "Bearer " + tok.access_token }
+    }).then(r => r.json());
+    const q = new URLSearchParams({ email: u.email || "", nome: u.name || "", linkedin: "1" });
+    res.redirect(SITE + "/cadastro-pro.html?" + q.toString());
+  } catch (e) {
+    console.error(e);
+    res.redirect(SITE + "/criar-conta.html?erro=oauth");
+  }
+});
+
 app.listen(PORT, ()=> console.log("Servidor Meu Agente IA no ar, porta", PORT));
