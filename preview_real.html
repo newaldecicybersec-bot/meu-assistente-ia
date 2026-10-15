@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#0a0618;color:#eef2ff}
+  #gl{position:fixed;inset:0;z-index:0;display:block}
+  #fx{position:fixed;inset:0;z-index:1;display:block;pointer-events:none}
+  .wordmark{position:fixed;top:50%;left:30%;transform:translate(-50%,-50%);z-index:10;
+    font-size:clamp(1.6rem,3.6vw,3.1rem);font-weight:800;letter-spacing:-1px;white-space:nowrap;
+    background:linear-gradient(180deg,#ffffff,#c7cfe0);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 60px rgba(180,190,220,.25);animation:flutuar 7s ease-in-out infinite}
+  @keyframes flutuar{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-56%)}}
+  .brand{position:fixed;top:22px;left:4vw;z-index:20;display:flex;align-items:center;gap:12px}
+  .brandtxt{font-size:1.15rem;font-weight:800;line-height:1;letter-spacing:.2px}
+  .brandtxt b{color:#eef2ff}
+  .brandtxt span{background:linear-gradient(180deg,#8fe0ff,#6c4dff);-webkit-background-clip:text;background-clip:text;color:transparent;margin-left:6px}
+  .hero-center{position:fixed;top:50%;left:30%;transform:translate(-50%,-50%);z-index:10;text-align:left;animation:flutuar 8s ease-in-out infinite}
+  .wm-line{font-size:clamp(2rem,4.6vw,3.9rem);font-weight:800;letter-spacing:-1.2px;line-height:1.02;
+    background:linear-gradient(180deg,#ffffff,#b9c3d6);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 10px 50px rgba(140,160,220,.18)}
+  .wm-accent{background:linear-gradient(180deg,#8fe0ff,#6c4dff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .wm-underline{width:120px;height:3px;border-radius:3px;margin:20px 0 16px;
+    background:linear-gradient(90deg,#6c4dff,#8fe0ff);box-shadow:0 0 22px rgba(120,120,255,.55)}
+  .wm-sub{font-size:clamp(.95rem,1.5vw,1.28rem);color:#c0c8e2;letter-spacing:.3px;font-weight:500}
+  .top-nav{position:fixed;top:22px;right:4vw;z-index:20;display:flex;gap:26px;align-items:center}
+  .top-nav .link{color:#dfe4f5;text-decoration:none;font-size:.92rem;font-weight:500;display:flex;align-items:center;gap:7px}
+  .top-nav .link svg{opacity:.8}
+  .top-nav .entrar{color:#aeb6d0}
+  .top-nav .btn{background:linear-gradient(120deg,#6c4dff,#8a5cff);color:#fff;padding:10px 22px;border-radius:10px;font-weight:600;font-size:.9rem;border:none;box-shadow:0 8px 24px rgba(108,77,255,.42)}
+
+</style>
+</head>
+<body>
+  
+  <canvas id="fx"></canvas>
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7fe0ff"/><stop offset="1" stop-color="#6c4dff"/></linearGradient></defs>
+      <rect x="4" y="4" width="40" height="40" rx="12" fill="url(#lg)" opacity="0.16"/>
+      <rect x="4" y="4" width="40" height="40" rx="12" stroke="url(#lg)" stroke-width="1.6" fill="none"/>
+      <circle cx="24" cy="24" r="5.5" fill="url(#lg)"/>
+      <circle cx="24" cy="24" r="11" stroke="url(#lg)" stroke-width="1.4" opacity="0.7" fill="none"/>
+      <circle cx="24" cy="10" r="2.1" fill="#9fe9ff"/><circle cx="24" cy="38" r="2.1" fill="#9fe9ff"/>
+      <circle cx="10" cy="24" r="2.1" fill="#b7a8ff"/><circle cx="38" cy="24" r="2.1" fill="#b7a8ff"/>
+    </svg>
+    <div class="brandtxt"><b>Meu Assistente</b><span>IA</span></div>
+  </div>
+  <div class="top-nav"><a class="link" href="#recursos">Recursos</a><a class="link" href="#pricing">Planos</a><a class="link" href="#como-funciona">Como funciona</a><a class="link entrar" href="#entrar">Entrar</a><a class="btn" href="#cadastro">Cadastrar</a></div>
+  <div class="hero-center">
+    <div class="wm-line">Meu Assistente</div>
+    <div class="wm-line wm-accent">IA</div>
+    <div class="wm-underline"></div>
+    <div class="wm-sub">Seu assistente de IA</div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+const canvas=document.getElementById('fx'); const ctx=canvas.getContext('2d');
+let W,H; function rs(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;} rs(); addEventListener('resize',rs);
+
+// carrega vertices do rosto (projecao 2D)
+let head3d=[];
+const loader=new THREE.GLTFLoader();
+loader.load('head.glb',(g)=>{
+  let mesh=null; g.scene.traverse(o=>{if(o.isMesh&&!mesh)mesh=o;});
+  const pos=mesh.geometry.attributes.position;
+  const step=Math.max(1,Math.floor(pos.count/9000));
+  const arr=[];
+  for(let i=0;i<pos.count;i+=step){arr.push([pos.getX(i),pos.getY(i),pos.getZ(i)]);}
+  // centraliza/normaliza
+  let mnx=1e9,mny=1e9,mnz=1e9,mxx=-1e9,mxy=-1e9,mxz=-1e9;
+  for(const a of arr){mnx=Math.min(mnx,a[0]);mxx=Math.max(mxx,a[0]);mny=Math.min(mny,a[1]);mxy=Math.max(mxy,a[1]);mnz=Math.min(mnz,a[2]);mxz=Math.max(mxz,a[2]);}
+  const cx=(mnx+mxx)/2,cy=(mny+mxy)/2,cz=(mnz+mxz)/2, sc=2.4/((mxx-mnx));
+  head3d=arr.map(a=>[(a[0]-cx)*sc,(a[1]-cy)*sc,(a[2]-cz)*sc]);
+  window.__headReady=true;
+},undefined,()=>{window.__headErr=true;});
+
+// globo de pontos
+const globe=[];for(let i=0;i<260;i++){const phi=Math.acos(2*Math.random()-1),th=Math.random()*6.283;globe.push([Math.sin(phi)*Math.cos(th),Math.cos(phi),Math.sin(phi)*Math.sin(th)]);}
+// numeros + feixes + bokeh
+let reveal=0; const t0=Date.now();
+const nums=[];for(let i=0;i<40;i++)nums.push({x:Math.random(),y:Math.random(),z:Math.random(),sp:0.0008+Math.random()*0.0025,d:Math.random()<0.5?'0':'1'});
+const frases=["Seu Assistente IA","Simples, Poderoso e Acessível","O futuro do atendimento é inteligente","Atende 24 horas por dia","Nunca mais perca um cliente","Teste grátis por 7 dias"];
+const fl=[];for(let i=0;i<7;i++)fl.push({txt:frases[i%frases.length],x:Math.random()*0.5+0.03,y:0.15+Math.random()*0.7,z:Math.random(),vz:0.0009+Math.random()*0.0012});
+const beams=[];for(let i=0;i<2;i++)beams.push({x:Math.random()*0.32+0.01,w:1.5+Math.random()*2.5,sp:0.0006+Math.random()*0.0014,y:Math.random()});
+const bokeh=[];for(let i=0;i<6;i++)bokeh.push({x:Math.random(),y:Math.random(),r:8+Math.random()*22,sp:0.0004+Math.random()*0.0009,hue:Math.random()<0.5?'160,110,255':'120,200,255'});
+
+function draw(){
+  // fundo cosmico
+  const bg=ctx.createRadialGradient(W*0.32,H*0.5,0,W*0.32,H*0.5,W*0.95);
+  bg.addColorStop(0,'#241252');bg.addColorStop(0.5,'#120a30');bg.addColorStop(1,'#080514');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+  const t=Date.now()*0.0004;
+  const gcx=W*0.70,gcy=H*0.56,R=Math.min(W,H)*0.26;
+
+  // globo girando (brilhante)
+  for(const g of globe){
+    const x=g[0]*Math.cos(t*0.6)-g[2]*Math.sin(t*0.6);
+    const z=g[0]*Math.sin(t*0.6)+g[2]*Math.cos(t*0.6);
+    const sx=gcx+x*R*1.35, sy=gcy+g[1]*R*1.35;
+    const a=0.22+(z+1)*0.22;
+    ctx.fillStyle=`rgba(110,180,255,${a})`;ctx.beginPath();ctx.arc(sx,sy,1.4,0,6.28);ctx.fill();
+  }
+
+  // ROSTO (brilhante, com glow)
+  ctx.shadowColor='rgba(120,190,255,0.6)';ctx.shadowBlur=8;
+  for(const h of head3d){
+    const sx=gcx + h[0]*R*1.35, sy=gcy - h[1]*R*1.35 + h[2]*R*0.12;
+    const a=0.65+ (h[2]+1)*0.3;
+    const sz=1.5 + (h[2]+1)*1.0;
+    ctx.fillStyle=`rgba(210,235,255,${a})`;
+    ctx.beginPath();ctx.arc(sx,sy,sz,0,6.28);ctx.fill();
+  }
+  ctx.shadowBlur=0;
+
+  // codigos flutuantes (binario) - brilhantes, com glow
+  for(const n of nums){ n.y-=n.sp*(0.5+n.z*1.6); if(n.y<-0.05){n.y=1.05;n.x=Math.random();n.z=Math.random();n.d=Math.random()<0.5?'0':'1';}
+    const sz=10+n.z*16,a=0.35+n.z*0.55;
+    ctx.font=`${sz}px monospace`; ctx.shadowColor='rgba(120,180,255,0.7)';ctx.shadowBlur=10;
+    ctx.fillStyle=`rgba(${170+n.z*60},${210+n.z*40},255,${a})`; ctx.fillText(n.d,n.x*W,n.y*H); ctx.shadowBlur=0; }
+
+  // LETRAS que SURGEM de longe e flutuam (com glow)
+  for(const f of fl){
+    f.z+=f.vz; if(f.z>1){f.z=0;f.x=Math.random()*0.52+0.03;f.y=0.15+Math.random()*0.7;f.txt=frases[Math.floor(Math.random()*frases.length)];}
+    const depth=f.z;                 // 0=longe, 1=perto
+    const scale=0.4+depth*1.25;
+    const alpha=Math.min(1,depth*2.6)*(1-Math.max(0,(depth-0.9)/0.1));  // surge e passa
+    const sz=24*scale;
+    ctx.save(); ctx.translate(f.x*W, f.y*H);
+    ctx.globalAlpha=alpha;
+    ctx.font=`600 ${sz}px 'Segoe UI',sans-serif`;
+    ctx.fillStyle='#eef2ff';
+    ctx.shadowColor='rgba(140,180,255,0.9)';ctx.shadowBlur=18*depth;
+    ctx.fillText(f.txt,0,0);
+    ctx.restore();
+  }
+
+  // feixes e bokeh (brilhantes)
+  for(const b of beams){ b.y-=b.sp; if(b.y<-0.2){b.y=1.2;b.x=Math.random()*0.32+0.01;}
+    const g=ctx.createLinearGradient(0,b.y*H-140,0,b.y*H+140);
+    g.addColorStop(0,'rgba(160,100,255,0)');g.addColorStop(0.5,'rgba(160,100,255,0.22)');g.addColorStop(1,'rgba(160,100,255,0)');
+    ctx.fillStyle=g;ctx.fillRect(b.x*W,(b.y-0.28)*H,b.w*8,0.56*H); }
+  for(const k of bokeh){ k.y-=k.sp; if(k.y<-0.1){k.y=1.1;k.x=Math.random();k.r=8+Math.random()*22;}
+    const rg=ctx.createRadialGradient(k.x*W,k.y*H,0,k.x*W,k.y*H,k.r);
+    rg.addColorStop(0,`rgba(${k.hue},0.16)`);rg.addColorStop(1,`rgba(${k.hue},0)`);
+    ctx.fillStyle=rg;ctx.beginPath();ctx.arc(k.x*W,k.y*H,k.r,0,6.28);ctx.fill(); }
+
+  requestAnimationFrame(draw);
+}
+draw();

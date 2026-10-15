@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA — Viagem Futurista</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#03060c;color:#eaf2ff;overflow-x:hidden}
+  #tunnel{position:fixed;inset:0;z-index:0;display:block}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(3,6,12,.55) 100%)}
+  .content{position:relative;z-index:2}
+
+  nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+    padding:18px 6vw;background:rgba(3,6,12,.35);backdrop-filter:blur(10px);border-bottom:1px solid rgba(90,220,210,.12)}
+  .logo{display:flex;align-items:center;gap:11px;font-size:1.5rem;font-weight:800}
+  .raio{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;
+    background:linear-gradient(135deg,#f4c15a,#d99a2b);box-shadow:0 0 22px rgba(230,180,70,.6);font-size:20px;color:#241a00}
+  .logo b{background:linear-gradient(90deg,#fff,#bfe9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{color:#a7c5d6;text-decoration:none;font-size:.95rem;font-weight:500}
+  .nav-links a:hover{color:#2fe0c0}
+  .btn{display:inline-block;padding:13px 27px;border-radius:30px;font-weight:700;text-decoration:none;cursor:pointer;border:none;font-size:1rem;transition:.2s}
+  .btn-primary{background:linear-gradient(120deg,#16e0b4,#0fb0c9);color:#04121a;box-shadow:0 8px 30px rgba(18,224,182,.5)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:#dff3ff;border:1px solid rgba(120,220,220,.3)}
+  .btn-gold{background:linear-gradient(120deg,#f4c15a,#d99a2b);color:#241a00}
+
+  .hero{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;padding:60px 6vw}
+  .badge{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border-radius:30px;
+    background:rgba(18,224,182,.12);border:1px solid rgba(18,224,182,.34);color:#7ff0d6;font-size:.88rem;font-weight:600;margin-bottom:26px}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:#f4c15a;box-shadow:0 0 12px #f4c15a}
+  h1{font-size:4.3rem;line-height:1.03;font-weight:800;letter-spacing:-1.5px;color:#fff;text-shadow:0 0 50px rgba(18,224,182,.35)}
+  h1 .hl{background:linear-gradient(90deg,#2fe0c0,#4fd6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin:26px 0 34px;font-size:1.35rem;color:#c3d8e6;line-height:1.55;max-width:530px}
+  .sub b{color:#fff;font-weight:600}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .hero-visual{position:relative;display:grid;place-items:center}
+  .hero-visual img{width:100%;max-width:480px;border-radius:28px;filter:drop-shadow(0 30px 90px rgba(18,224,182,.4))}
+  .holo-ring{position:absolute;width:520px;height:520px;border-radius:50%;border:1px solid rgba(18,224,182,.30);
+    box-shadow:0 0 80px rgba(18,224,182,.25), inset 0 0 80px rgba(18,224,182,.12);animation:spin 18s linear infinite}
+  .holo-ring.two{width:600px;height:600px;border-color:rgba(244,193,90,.18);animation-duration:26s;animation-direction:reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  section.block{position:relative;padding:110px 6vw}
+  .glass{background:rgba(10,20,30,.55);backdrop-filter:blur(14px);border:1px solid rgba(90,220,210,.16);border-radius:22px;padding:40px}
+  .kicker{color:#2fe0c0;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.82rem}
+  h2{font-size:2.7rem;font-weight:800;color:#fff;margin:14px 0 18px;line-height:1.15}
+  h2 .hl{background:linear-gradient(90deg,#2fe0c0,#4fd6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:#c3d8e6;font-size:1.18rem;max-width:680px;line-height:1.65}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+  .card{background:rgba(10,20,30,.55);backdrop-filter:blur(12px);border:1px solid rgba(90,220,210,.16);border-radius:18px;padding:32px 28px;transition:.3s}
+  .card:hover{transform:translateY(-8px);border-color:rgba(18,224,182,.5);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  .card .ic{width:54px;height:54px;border-radius:14px;background:rgba(18,224,182,.14);display:grid;place-items:center;font-size:26px;margin-bottom:18px}
+  .card h3{color:#fff;font-size:1.28rem;margin-bottom:10px}
+  .card p{color:#a3c0d2;line-height:1.55}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+  .step{padding:28px 22px;border-radius:16px;background:rgba(10,20,30,.55);backdrop-filter:blur(12px);border:1px solid rgba(90,220,210,.16)}
+  .step .n{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#16e0b4,#0fb0c9);color:#04121a;display:grid;place-items:center;font-weight:800;font-size:1.25rem;margin-bottom:16px}
+  .step h3{color:#fff;font-size:1.15rem;margin-bottom:8px}
+  .step p{color:#a3c0d2;font-size:.97rem;line-height:1.5}
+
+  .stats-band{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center}
+  .stats-band .n{font-size:3.2rem;font-weight:800;background:linear-gradient(90deg,#2fe0c0,#4fd6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stats-band .l{color:#8fb2c4;font-size:1.05rem;margin-top:6px}
+
+  .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+  .plan{background:rgba(10,20,30,.55);backdrop-filter:blur(12px);border:1px solid rgba(90,220,210,.16);border-radius:18px;padding:30px 24px;display:flex;flex-direction:column}
+  .plan.feature{border-color:rgba(18,224,182,.55);background:rgba(18,224,182,.08)}
+  .plan .tag{color:#2fe0c0;font-weight:700}
+  .plan .price{font-size:2.5rem;font-weight:800;color:#fff;margin:12px 0 4px}
+  .plan .price span{font-size:1rem;color:#8fb2c4;font-weight:500}
+  .plan ul{list-style:none;margin:18px 0 26px}
+  .plan li{color:#a9c6d6;padding:8px 0;border-bottom:1px solid rgba(90,220,210,.10);font-size:.95rem}
+  .plan .btn{margin-top:auto;text-align:center}
+
+  footer{position:relative;z-index:2;padding:56px 6vw;background:rgba(3,6,12,.85);border-top:1px solid rgba(90,220,210,.12);color:#7d97a8;text-align:center}
+
+  .scroll-hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:30;color:#7ff0d6;
+    font-size:.85rem;letter-spacing:2px;animation:float 2s ease-in-out infinite;text-transform:uppercase}
+  @keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+  @media(max-width:960px){.hero{grid-template-columns:1fr;text-align:center;padding-top:40px}
+    .sub{margin-inline:auto}.cta-row{justify-content:center}.nav-links{display:none}h1{font-size:2.7rem}
+    .hero-visual{margin-top:30px}.cards,.steps,.plans,.stats-band{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="tunnel"></canvas>
+<div class="vignette"></div>
+
+<div class="content">
+<nav>
+  <div class="logo"><span class="raio">⚡</span><b>Meu Assistente IA</b></div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#seguranca">Segurança</a>
+    <a href="#pricing">Planos</a>
+    <a class="btn btn-primary" href="#cadastro">Começar Agora</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div>
+    <div class="badge"><span class="dot"></span> Nova Experiência</div>
+    <h1>O Futuro do<br>Atendimento é<br><span class="hl">Inteligente!</span></h1>
+    <p class="sub">Viaje pelo futuro do atendimento. Um assistente de IA para WhatsApp. <b>Simples, poderoso e acessível.</b></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#cadastro">Teste Grátis por 7 Dias</a>
+      <a class="btn btn-ghost" href="#como-funciona">Iniciar a Viagem</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="holo-ring"></div>
+    <div class="holo-ring two"></div>
+    <img src="axyia_avatar.jpg" alt="AxyIA">
+  </div>
+</section>
+
+<section class="block" id="numeros">
+  <div class="stats-band">
+    <div><div class="n">197M</div><div class="l">Brasileiros no WhatsApp</div></div>
+    <div><div class="n">24/7</div><div class="l">Atendendo sem parar</div></div>
+    <div><div class="n">5min</div><div class="l">Para configurar</div></div>
+  </div>
+</section>
+
+<section class="block" id="recursos">
+  <div class="kicker">Recursos</div>
+  <h2>Inteligência que <span class="hl">trabalha por você</span></h2>
+  <p class="lead">Tudo o que o seu negócio precisa para atender melhor, vender mais e nunca deixar um cliente esperando.</p>
+  <div class="cards">
+    <div class="card"><div class="ic">⚡</div><h3>Resposta instantânea</h3><p>Atende em segundos, dia e noite.</p></div>
+    <div class="card"><div class="ic">💬</div><h3>Humanizado</h3><p>Conversa natural, com o tom da sua marca.</p></div>
+    <div class="card"><div class="ic">📈</div><h3>Aprende e evolui</h3><p>Quanto mais usa, melhor fica.</p></div>
+    <div class="card"><div class="ic">📅</div><h3>Agenda e confirma</h3><p>Marca horários e reduz faltas.</p></div>
+    <div class="card"><div class="ic">🎯</div><h3>Qualifica leads</h3><p>Identifica quem está pronto para comprar.</p></div>
+    <div class="card"><div class="ic">🔗</div><h3>Integra com WhatsApp</h3><p>No número que você já usa.</p></div>
+  </div>
+</section>
+
+<section class="block" id="como-funciona">
+  <div class="glass">
+    <div class="kicker">Como funciona</div>
+    <h2>Pronto em <span class="hl">4 passos</span></h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Crie sua conta</h3><p>Cadastro em 2 minutos.</p></div>
+      <div class="step"><div class="n">2</div><h3>Configure a AxyIA</h3><p>Escolha o tom de voz.</p></div>
+      <div class="step"><div class="n">3</div><h3>Conecte o WhatsApp</h3><p>Em 1 minuto.</p></div>
+      <div class="step"><div class="n">4</div><h3>Comece a atender</h3><p>A AxyIA assume por você.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="seguranca">
+  <div class="kicker">Segurança</div>
+  <h2>Seus dados <span class="hl">protegidos</span></h2>
+  <div class="cards">
+    <div class="card"><div class="ic">🔒</div><h3>Criptografia</h3><p>Conversas protegidas de ponta a ponta.</p></div>
+    <div class="card"><div class="ic">🛡️</div><h3>Conforme a LGPD</h3><p>Privacidade em primeiro lugar.</p></div>
+    <div class="card"><div class="ic">✅</div><h3>Confiável</h3><p>Seus dados sempre seguros.</p></div>
+  </div>
+</section>
+
+<section class="block" id="pricing">
+  <div class="kicker">Planos</div>
+  <h2>Um plano para <span class="hl">cada negócio</span></h2>
+  <p class="lead">Todos incluem a AxyIA humanizada. Só muda a personalização e o volume.</p>
+  <div class="plans">
+    <div class="plan"><div class="tag">Básico</div><div class="price">R$29<span>/mês</span></div>
+      <ul><li>500 mensagens/mês</li><li>Respostas humanizadas</li><li>1 número</li></ul>
+      <a class="btn btn-ghost" href="#cadastro">Começar</a></div>
+    <div class="plan feature"><div class="tag">Profissional</div><div class="price">R$59<span>/mês</span></div>
+      <ul><li>2.000 mensagens/mês</li><li>Respostas em áudio</li><li>Personalização de voz</li></ul>
+      <a class="btn btn-primary" href="#cadastro">Começar</a></div>
+    <div class="plan"><div class="tag">Empresarial</div><div class="price">R$149<span>/mês</span></div>
+      <ul><li>5.000 mensagens/mês</li><li>Vídeo e equipe</li><li>Suporte prioritário</li></ul>
+      <a class="btn btn-ghost" href="#cadastro">Começar</a></div>
+    <div class="plan"><div class="tag">Assistente Pessoal</div><div class="price">Premium</div>
+      <ul><li>Experiência completa</li><li>Voz e vídeo</li><li>Personalização dedicada</li></ul>
+      <a class="btn btn-gold" href="#cadastro">Falar com Vendas</a></div>
+  </div>
+</section>
+
+<section class="block" id="cadastro">
+  <div class="glass" style="max-width:620px;margin:0 auto">
+    <div class="kicker">Comece agora</div>
+    <h2>Crie sua conta <span class="hl">em 2 minutos</span></h2>
+    <p class="lead" style="margin-inline:auto;text-align:center">Preencha para criar a conta. Depois escolhe o plano e libera a sua AxyIA.</p>
+    <form onsubmit="alert('Conta criada! Escolha o plano para liberar a AxyIA.');return false" style="margin-top:24px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <input required placeholder="Nome completo" style="padding:14px;border-radius:12px;border:1px solid rgba(90,220,210,.22);background:rgba(5,10,16,.7);color:#eaf2ff">
+        <input required placeholder="WhatsApp" style="padding:14px;border-radius:12px;border:1px solid rgba(90,220,210,.22);background:rgba(5,10,16,.7);color:#eaf2ff">
+      </div>
+      <input required type="email" placeholder="E-mail" style="width:100%;margin-top:16px;padding:14px;border-radius:12px;border:1px solid rgba(90,220,210,.22);background:rgba(5,10,16,.7);color:#eaf2ff">
+      <button class="btn btn-primary" style="width:100%;margin-top:18px;padding:16px">Criar minha conta grátis</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Meu Assistente IA · Feito no Brasil</p>
+  <p style="margin-top:10px"><a href="termos-de-uso.html" style="color:#2fe0c0;text-decoration:none">Termos</a> · <a href="politica-de-privacidade.html" style="color:#2fe0c0;text-decoration:none">Privacidade</a> · <a href="politica-de-cookies.html" style="color:#2fe0c0;text-decoration:none">Cookies</a></p>
+</footer>
+</div>
+
+<div class="scroll-hint">↓ desça para viajar ↓</div>
+
+<script>
+// TUNEL FUTURISTA: particulas de dados voando em direcao ao observador (corredor de IA)
+const canvas = document.getElementById('tunnel');
+const ctx = canvas.getContext('2d');
+let W, H, cx, cy;
+function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; cx=W/2; cy=H/2; }
+resize(); addEventListener('resize', resize);
+
+const N = 480;
+const stars = [];
+for(let i=0;i<N;i++){
+  stars.push({
+    x:(Math.random()-0.5)*W,
+    y:(Math.random()-0.5)*H,
+    z:Math.random()*W,
+    hue: Math.random()<0.14 ? 42 : 168   // maioria teal, alguns dourados
+  });
+}
+let scrollBoost = 0;
+addEventListener('scroll', ()=>{ scrollBoost = 6; });
+
+function draw(){
+  ctx.fillStyle='rgba(3,6,12,0.35)';
+  ctx.fillRect(0,0,W,H);
+  for(const s of stars){
+    s.z -= 4 + scrollBoost;
+    if(s.z<=1){ s.z=W; s.x=(Math.random()-0.5)*W; s.y=(Math.random()-0.5)*H; }
+    const k = 128 / s.z;
+    const px = cx + s.x*k;
+    const py = cy + s.y*k;
+    if(px<0||px>W||py<0||py>H) continue;
+    const size = (1 - s.z/W) * 3.2;
+    const alpha = (1 - s.z/W) * 0.9;
+    ctx.beginPath();
+    const col = s.hue===168 ? `hsla(168,85%,60%,${alpha})` : `hsla(42,90%,62%,${alpha})`;
+    ctx.fillStyle = col;
+    ctx.arc(px,py,Math.max(size,0.4),0,6.28);
+    ctx.fill();
+    // rastro
+    const k2 = 128/(s.z+22);
+    ctx.strokeStyle = col;
+    ctx.lineWidth = size*0.7;
+    ctx.beginPath();
+    ctx.moveTo(cx+s.x*k2, cy+s.y*k2);
+    ctx.lineTo(px,py);
+    ctx.stroke();
+  }
+  scrollBoost *= 0.94;
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

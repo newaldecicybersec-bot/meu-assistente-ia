@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#05070b;color:#e8eef5;overflow-x:hidden}
+  #scene{position:fixed;inset:0;z-index:0;display:block}
+  .grade{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 50% 42%, transparent 30%, rgba(5,7,11,.78) 100%)}
+  .content{position:relative;z-index:2}
+  nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 6vw;background:rgba(5,7,11,.35);backdrop-filter:blur(14px);border-bottom:1px solid rgba(120,180,200,.10)}
+  .logo{display:flex;align-items:center;gap:11px;font-size:1.45rem;font-weight:800}
+  .raio{width:36px;height:36px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(135deg,#e8b64c,#c9922f);font-size:19px;color:#241a00}
+  .logo b{background:linear-gradient(90deg,#fff,#a9c6d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:#9db4c4;text-decoration:none;font-size:.94rem;font-weight:500}
+  .nav-links a:hover{color:#6fe0d0}
+  .btn{display:inline-block;padding:12px 26px;border-radius:10px;font-weight:700;text-decoration:none;cursor:pointer;border:none;font-size:.98rem;transition:.25s}
+  .btn-primary{background:#1fbfa8;color:#04121a;box-shadow:0 10px 34px rgba(31,191,168,.28)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.05);color:#dfe9f2;border:1px solid rgba(140,180,200,.2)}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 6vw;max-width:820px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;letter-spacing:3px;text-transform:uppercase;font-size:.78rem;color:#6fe0d0;font-weight:600;margin-bottom:22px}
+  .eyebrow .line{width:38px;height:1px;background:#6fe0d0;opacity:.6}
+  h1{font-size:clamp(2.4rem,5.6vw,4.4rem);line-height:1.04;font-weight:800;letter-spacing:-1.4px;color:#fff}
+  h1 .hl{color:#7fe6d6}
+  .sub{margin:26px 0 34px;font-size:clamp(1.08rem,1.9vw,1.35rem);color:#a9c0d0;line-height:1.6;max-width:600px}
+  .sub b{color:#fff;font-weight:600}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+  section.block{position:relative;padding:108px 6vw}
+  .glass{background:rgba(10,16,24,.55);backdrop-filter:blur(18px);border:1px solid rgba(120,180,200,.12);border-radius:18px;padding:44px}
+  .kicker{color:#6fe0d0;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
+  h2{font-size:clamp(1.9rem,3.8vw,2.6rem);font-weight:800;color:#fff;margin:14px 0 18px;line-height:1.15}
+  h2 .hl{color:#7fe6d6}
+  .lead{color:#a9c0d0;font-size:1.12rem;max-width:660px;line-height:1.65}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  .card{background:rgba(10,16,24,.55);backdrop-filter:blur(16px);border:1px solid rgba(120,180,200,.12);border-radius:15px;padding:30px 26px;transition:.3s}
+  .card:hover{transform:translateY(-6px);border-color:rgba(31,191,168,.4)}
+  .card .ic{width:48px;height:48px;border-radius:11px;background:rgba(31,191,168,.12);display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+  .card h3{color:#fff;font-size:1.2rem;margin-bottom:9px}
+  .card p{color:#93aab8;line-height:1.55;font-size:.97rem}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+  .step{padding:26px 20px;border-radius:14px;background:rgba(10,16,24,.55);backdrop-filter:blur(16px);border:1px solid rgba(120,180,200,.12)}
+  .step .n{width:38px;height:38px;border-radius:10px;background:#1fbfa8;color:#04121a;display:grid;place-items:center;font-weight:800;font-size:1.1rem;margin-bottom:14px}
+  .step h3{color:#fff;font-size:1.08rem;margin-bottom:7px}
+  .step p{color:#93aab8;font-size:.93rem;line-height:1.5}
+  .offer{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:42px}
+  .offer-item{display:flex;gap:18px;align-items:flex-start;background:rgba(10,16,24,.55);backdrop-filter:blur(16px);border:1px solid rgba(120,180,200,.12);border-radius:15px;padding:26px}
+  .offer-item .ic{width:48px;height:48px;flex:0 0 48px;border-radius:11px;background:rgba(31,191,168,.14);display:grid;place-items:center;font-size:22px}
+  .offer-item b{color:#fff;font-size:1.18rem;display:block;margin-bottom:6px}
+  .offer-item span{color:#93aab8;line-height:1.55;font-size:.98rem}
+  .stats-band{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;text-align:center}
+  .stats-band .n{font-size:2.9rem;font-weight:800;color:#7fe6d6}
+  .stats-band .l{color:#8296a4;font-size:1rem;margin-top:5px}
+  .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
+  .plan{background:rgba(10,16,24,.55);backdrop-filter:blur(16px);border:1px solid rgba(120,180,200,.12);border-radius:15px;padding:28px 22px;display:flex;flex-direction:column}
+  .plan.feature{border-color:rgba(31,191,168,.5);background:rgba(31,191,168,.06)}
+  .plan .tag{color:#6fe0d0;font-weight:700}
+  .plan .price{font-size:2.3rem;font-weight:800;color:#fff;margin:11px 0 4px}
+  .plan .price span{font-size:.95rem;color:#8296a4;font-weight:500}
+  .plan ul{list-style:none;margin:16px 0 24px}
+  .plan li{color:#9db4c4;padding:7px 0;border-bottom:1px solid rgba(120,180,200,.08);font-size:.93rem}
+  .plan .btn{margin-top:auto;text-align:center}
+  footer{position:relative;z-index:2;padding:52px 6vw;background:rgba(4,6,10,.85);border-top:1px solid rgba(120,180,200,.1);color:#6b7c88;text-align:center}
+  @media(max-width:960px){.nav-links{display:none}.cards,.steps,.plans,.stats-band,.offer{grid-template-columns:1fr}.hero{min-height:92vh}.glass{padding:28px}}
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div class="grade"></div>
+<div class="content">
+<nav>
+  <div class="logo"><span class="raio">⚡</span><b>Meu Assistente IA</b></div>
+  <div class="nav-links"><a href="#home">Home</a><a href="#recursos">Recursos</a><a href="#seguranca">Segurança</a><a href="#pricing">Planos</a><a class="btn btn-primary" href="#cadastro">Começar Agora</a></div>
+</nav>
+<section class="hero" id="home">
+  <div class="eyebrow"><span class="line"></span> Infraestrutura de atendimento com IA</div>
+  <h1>O Futuro do Atendimento e <span class="hl">Inteligente</span></h1>
+  <p class="sub">Um assistente de IA que conversa no WhatsApp pelos seus clientes, 24 horas por dia. <b>Simples, poderoso e acessivel.</b></p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#cadastro">Teste Gratis por 7 Dias</a>
+    <a class="btn btn-ghost" href="#como-funciona">Como funciona</a>
+  </div>
+</section>
+<section class="block" id="oferta">
+  <div class="kicker">O que oferecemos</div>
+  <h2>Assistente de IA no WhatsApp <span class="hl">a partir de R$29/mês</span></h2>
+  <div class="offer">
+    <div class="offer-item"><div class="ic">💬</div><div><b>Atendimento humano</b><span>Conversa natural, 24 horas por dia, sem fazer o cliente esperar.</span></div></div>
+    <div class="offer-item"><div class="ic">⚡</div><div><b>Resposta em segundos</b><span>Configure em 5 minutos e comece a atender hoje mesmo.</span></div></div>
+    <div class="offer-item"><div class="ic">✅</div><div><b>Teste grátis por 7 dias</b><span>Sem cartão, sem fidelidade. Cancele quando quiser.</span></div></div>
+    <div class="offer-item"><div class="ic">📈</div><div><b>Aprende com cada conversa</b><span>Quanto mais usa, mais inteligente e humana ela fica.</span></div></div>
+  </div>
+</section>
+<section class="block" id="recursos">
+  <div class="kicker">Recursos</div><h2>Inteligencia que <span class="hl">trabalha por voce</span></h2>
+  <div class="cards">
+    <div class="card"><div class="ic">⚡</div><h3>Resposta instantanea</h3><p>Atende em segundos, dia e noite.</p></div>
+    <div class="card"><div class="ic">💬</div><h3>Humanizado</h3><p>Conversa natural, com o tom da sua marca.</p></div>
+    <div class="card"><div class="ic">📈</div><h3>Aprende e evolui</h3><p>Quanto mais usa, melhor fica.</p></div>
+    <div class="card"><div class="ic">📅</div><h3>Agenda e confirma</h3><p>Marca horarios e reduz faltas.</p></div>
+    <div class="card"><div class="ic">🎯</div><h3>Qualifica leads</h3><p>Identifica quem esta pronto para comprar.</p></div>
+    <div class="card"><div class="ic">🔗</div><h3>Integra com WhatsApp</h3><p>No numero que voce ja usa.</p></div>
+  </div>
+</section>
+<section class="block" id="como-funciona"><div class="glass">
+  <div class="kicker">Como funciona</div><h2>Pronto em <span class="hl">4 passos</span></h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Crie sua conta</h3><p>Cadastro em 2 minutos.</p></div>
+    <div class="step"><div class="n">2</div><h3>Configure a AxyIA</h3><p>Escolha o tom de voz.</p></div>
+    <div class="step"><div class="n">3</div><h3>Conecte o WhatsApp</h3><p>Em 1 minuto.</p></div>
+    <div class="step"><div class="n">4</div><h3>Comece a atender</h3><p>A AxyIA assume por voce.</p></div>
+  </div>
+</div></section>
+<section class="block" id="seguranca">
+  <div class="kicker">Seguranca</div><h2>Seus dados <span class="hl">protegidos</span></h2>
+  <div class="cards">
+    <div class="card"><div class="ic">🔒</div><h3>Criptografia</h3><p>Conversas protegidas de ponta a ponta.</p></div>
+    <div class="card"><div class="ic">🛡️</div><h3>Conforme a LGPD</h3><p>Privacidade em primeiro lugar.</p></div>
+    <div class="card"><div class="ic">✅</div><h3>Confiavel</h3><p>Seus dados sempre seguros.</p></div>
+  </div>
+</section>
+<section class="block" id="pricing">
+  <div class="kicker">Planos</div><h2>Um plano para <span class="hl">cada negocio</span></h2>
+  <div class="plans">
+    <div class="plan"><div class="tag">Basico</div><div class="price">R$29<span>/mes</span></div><ul><li>500 mensagens/mes</li><li>Respostas humanizadas</li><li>1 numero</li></ul><a class="btn btn-ghost" href="#cadastro">Comecar</a></div>
+    <div class="plan feature"><div class="tag">Profissional</div><div class="price">R$59<span>/mes</span></div><ul><li>2.000 mensagens/mes</li><li>Respostas em audio</li><li>Personalizacao de voz</li></ul><a class="btn btn-primary" href="#cadastro">Comecar</a></div>
+    <div class="plan"><div class="tag">Empresarial</div><div class="price">R$149<span>/mes</span></div><ul><li>5.000 mensagens/mes</li><li>Video e equipe</li><li>Suporte prioritario</li></ul><a class="btn btn-ghost" href="#cadastro">Comecar</a></div>
+    <div class="plan"><div class="tag">Assistente Pessoal</div><div class="price">Premium</div><ul><li>Experiencia completa</li><li>Voz e video</li><li>Personalizacao dedicada</li></ul><a class="btn btn-ghost" href="#cadastro">Falar com Vendas</a></div>
+  </div>
+</section>
+<section class="block" id="cadastro"><div class="glass" style="max-width:600px;margin:0 auto">
+  <div class="kicker">Comece agora</div><h2>Crie sua conta <span class="hl">em 2 minutos</span></h2>
+  <p class="lead" style="margin-inline:auto;text-align:center">Preencha para criar a conta. Depois escolhe o plano e libera a sua AxyIA.</p>
+  <form onsubmit="alert('Conta criada! Escolha o plano para liberar a AxyIA.');return false" style="margin-top:22px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <input required placeholder="Nome completo" style="padding:14px;border-radius:11px;border:1px solid rgba(120,180,200,.2);background:rgba(8,12,18,.7);color:#e8eef5">
+      <input required placeholder="WhatsApp" style="padding:14px;border-radius:11px;border:1px solid rgba(120,180,200,.2);background:rgba(8,12,18,.7);color:#e8eef5">
+    </div>
+    <input required type="email" placeholder="E-mail" style="width:100%;margin-top:14px;padding:14px;border-radius:11px;border:1px solid rgba(120,180,200,.2);background:rgba(8,12,18,.7);color:#e8eef5">
+    <button class="btn btn-primary" style="width:100%;margin-top:16px;padding:15px">Criar minha conta gratis</button>
+  </form>
+</div></section>
+<footer>
+  <p>© 2026 Meu Assistente IA · Feito no Brasil</p>
+  <p style="margin-top:10px"><a href="termos-de-uso.html" style="color:#6fe0d0;text-decoration:none">Termos</a> · <a href="politica-de-privacidade.html" style="color:#6fe0d0;text-decoration:none">Privacidade</a> · <a href="politica-de-cookies.html" style="color:#6fe0d0;text-decoration:none">Cookies</a></p>
+</footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const canvas=document.getElementById('scene');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x05070b);scene.fog=new THREE.FogExp2(0x05070b,0.014);
+const camera=new THREE.PerspectiveCamera(66,innerWidth/innerHeight,0.1,500);camera.position.set(0,2,22);
+
+// textura de placa de circuito (canvas)
+function circuitTexture(){
+  const c=document.createElement('canvas');c.width=c.height=512;const x=c.getContext('2d');
+  x.fillStyle='#0a1a14';x.fillRect(0,0,512,512);
+  // trilhas
+  for(let i=0;i<70;i++){
+    x.strokeStyle=Math.random()>.85?'#e8b64c':'#1c6f5a';x.lineWidth=Math.random()*2+1;
+    x.beginPath();let px=Math.random()*512,py=Math.random()*512;x.moveTo(px,py);
+    for(let s=0;s<4;s++){ if(Math.random()>.5)px+=(Math.random()-.5)*120; else py+=(Math.random()-.5)*120; x.lineTo(px,py);}
+    x.stroke();
+  }
+  // pads
+  for(let i=0;i<120;i++){ x.fillStyle=Math.random()>.8?'#e8b64c':'#2fd9b0'; x.beginPath(); x.arc(Math.random()*512,Math.random()*512,Math.random()*3+1.2,0,6.28); x.fill(); }
+  // chips
+  for(let i=0;i<10;i++){ x.fillStyle='#0c1218'; const w=Math.random()*70+30,h=Math.random()*50+25; const cx=Math.random()*440,cy=Math.random()*440; x.fillRect(cx,cy,w,h); x.fillStyle='#e8b64c'; x.fillRect(cx,cy,3,3); }
+  const tex=new THREE.CanvasTexture(c); tex.wrapS=tex.wrapT=THREE.RepeatWrapping; return tex;
+}
+const boardTex=circuitTexture(); boardTex.repeat.set(3,1);
+
+// luzes
+scene.add(new THREE.HemisphereLight(0x183040,0x05070b,0.8));
+const key=new THREE.DirectionalLight(0xbfe9ff,1.0);key.position.set(5,14,12);scene.add(key);
+const glow=new THREE.PointLight(0x2fd9b0,3.5,120,2);glow.position.set(0,5,0);scene.add(glow);
+const warm=new THREE.PointLight(0xe8b64c,1.6,90,2);warm.position.set(0,6,-40);scene.add(warm);
+
+// chao com circuito
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(40,520),new THREE.MeshStandardMaterial({map:boardTex.clone(),metalness:.7,roughness:.5}));
+floor.material.map.repeat.set(6,40);floor.rotation.x=-Math.PI/2;floor.position.set(0,0,-240);scene.add(floor);
+
+// paredes de placas (dois lados)
+function boardWall(x){const t=boardTex.clone();t.repeat.set(2,14);
+  const w=new THREE.Mesh(new THREE.PlaneGeometry(2,90),new THREE.MeshStandardMaterial({map:t,metalness:.65,roughness:.55,emissive:0x06120d,emissiveIntensity:.5}));
+  w.position.set(x,6,-220);w.rotation.y=x>0?-Math.PI/2:Math.PI/2;scene.add(w);}
+boardWall(-9);boardWall(9);
+
+// PORTAL EM FORMA DE CELULAR (porta)
+const portal=new THREE.Group();
+// moldura do celular (retangulo arredondado) — 4 barras
+const frameMat=new THREE.MeshStandardMaterial({color:0x12202b,metalness:.9,roughness:.3,emissive:0x0a2b2b,emissiveIntensity:.6});
+const glimMat=new THREE.MeshBasicMaterial({color:0x2fd9b0});
+function bar(w,h,x,y){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,0.6),frameMat);m.position.set(x,y,0);portal.add(m);
+  const g=new THREE.Mesh(new THREE.BoxGeometry(w*1.02,h*1.02,0.1),glimMat);g.position.set(x,y,0.34);portal.add(g);}
+bar(8,0.7,0,6.2); bar(8,0.7,0,-6.2); bar(0.7,12.4,-3.65,0); bar(0.7,12.4,3.65,0);
+// portas que se abrem (2 folhas)
+const doorMat=new THREE.MeshStandardMaterial({color:0x0e1c26,metalness:.85,roughness:.35,emissive:0x0a2230,emissiveIntensity:.4,transparent:true,opacity:.92});
+const doorL=new THREE.Mesh(new THREE.BoxGeometry(3.6,11.8,0.25),doorMat);doorL.position.set(-1.85,0,0.1);portal.add(doorL);
+const doorR=new THREE.Mesh(new THREE.BoxGeometry(3.6,11.8,0.25),doorMat);doorR.position.set(1.85,0,0.1);portal.add(doorR);
+portal.position.set(0,2,0);scene.add(portal);
+
+// particulas
+const PN=800,pos=new Float32Array(PN*3);
+for(let i=0;i<PN;i++){pos[i*3]=(Math.random()-.5)*20;pos[i*3+1]=Math.random()*16;pos[i*3+2]=-Math.random()*180;}
+const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x2fd9b0,size:.055,transparent:true,opacity:.6})));
+
+let targetZ=22,curZ=22,doorOpen=0;
+function onScroll(){const m=document.body.scrollHeight-innerHeight;const p=m>0?scrollY/m:0;
+  targetZ=22-p*170; doorOpen=Math.min(1,Math.max(0,(p-0.02)*6));}
+addEventListener('scroll',onScroll);onScroll();
+function animate(){requestAnimationFrame(animate);
+ curZ+=(targetZ-curZ)*0.06;camera.position.z=curZ;
+ camera.position.x=Math.sin(Date.now()*0.00035)*0.9;camera.position.y=2+Math.sin(Date.now()*0.0005)*0.25;
+ camera.lookAt(Math.sin(Date.now()*0.00035)*0.5,2.2,curZ-16);
+ // portas abrindo
+ doorL.position.x=-1.85-doorOpen*4.2; doorR.position.x=1.85+doorOpen*4.2;
+ glow.position.z=curZ-2;warm.position.z=curZ-40;
+ const a=pGeo.attributes.position.array;for(let i=0;i<PN;i++){a[i*3+2]+=0.4;if(a[i*3+2]>curZ+6){a[i*3+2]=curZ-180;}}pGeo.attributes.position.needsUpdate=true;
+ renderer.render(scene,camera);}
+animate();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+</script>
+</body>
+</html>

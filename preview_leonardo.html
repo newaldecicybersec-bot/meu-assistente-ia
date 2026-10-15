@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#08060f;color:#fff;overflow-x:hidden;height:100vh}
+  /* corredor 3D de letras */
+  .scene{position:fixed;inset:0;perspective:640px;perspective-origin:50% 50%;overflow:hidden;background:
+    radial-gradient(ellipse 70% 70% at 50% 50%, #140b26 0%, #08060f 70%)}
+  .room{position:absolute;inset:0;transform-style:preserve-3d;animation:drift 26s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translateZ(0) rotateX(0deg)}to{transform:translateZ(60px) rotateX(1deg)}}
+  .word{position:absolute;font-weight:900;letter-spacing:-4px;line-height:.92;
+    background:linear-gradient(180deg,#b79dff,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 60px rgba(124,92,255,.35);white-space:nowrap;user-select:none}
+  /* paredes */
+  .left{top:50%;left:-6%;transform-origin:left center;transform:translateY(-50%) rotateY(78deg);font-size:clamp(80px,15vw,220px)}
+  .right{top:50%;right:-6%;transform-origin:right center;transform:translateY(-50%) rotateY(-78deg);font-size:clamp(80px,15vw,220px)}
+  .top{top:2%;left:50%;transform-origin:center top;transform:translateX(-50%) rotateX(66deg);font-size:clamp(70px,13vw,200px)}
+  .bottom{bottom:2%;left:50%;transform-origin:center bottom;transform:translateX(-50%) rotateX(-66deg);font-size:clamp(70px,13vw,200px)}
+  .back1{top:20%;left:50%;transform:translateX(-50%) translateZ(-520px);font-size:clamp(46px,8vw,120px);opacity:.5}
+  .back2{top:62%;left:50%;transform:translateX(-50%) translateZ(-420px);font-size:clamp(40px,7vw,100px);opacity:.4}
+  .back3{top:44%;left:50%;transform:translateX(-50%) translateZ(-720px);font-size:clamp(30px,5vw,80px);opacity:.32}
+
+  .overlay{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+  .brand{position:fixed;top:26px;left:5vw;z-index:20;font-weight:900;font-size:1.4rem;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+  .brand .raio{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(135deg,#e8b64c,#c9922f);color:#241a00;font-size:18px}
+  .top-nav{position:fixed;top:30px;right:5vw;z-index:20;display:flex;gap:26px;align-items:center}
+  .top-nav a{color:#c9b8ff;text-decoration:none;font-size:.92rem;font-weight:500}
+  .top-nav .btn{background:#fff;color:#140b26;padding:11px 22px;border-radius:24px;font-weight:700}
+  .eyebrow{letter-spacing:4px;text-transform:uppercase;font-size:.82rem;color:#b79dff;font-weight:600;margin-bottom:22px}
+  h1{font-size:clamp(2.4rem,5.6vw,4.6rem);font-weight:900;letter-spacing:-1.5px;line-height:1.02;text-shadow:0 0 60px rgba(124,92,255,.5)}
+  h1 .hl{color:#c9b8ff}
+  .sub{margin:24px 0 34px;font-size:clamp(1.05rem,1.9vw,1.35rem);color:#c8c2e0;max-width:620px;line-height:1.55}
+  .sub b{color:#fff}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn-primary{background:#fff;color:#140b26;padding:15px 32px;border-radius:28px;font-weight:700;text-decoration:none;font-size:1.05rem;transition:.25s}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,255,255,.25)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;padding:15px 32px;border-radius:28px;font-weight:700;text-decoration:none;font-size:1.05rem;border:1px solid rgba(183,157,255,.35)}
+  .vignette{position:fixed;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse 60% 55% at 50% 50%, transparent 40%, rgba(8,6,15,.55) 100%)}
+  .scroll-cue{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:20;color:#b79dff;font-size:.78rem;letter-spacing:3px;text-transform:uppercase;opacity:.8}
+  @media(max-width:720px){.top-nav{display:none}.left,.right{font-size:90px}.top,.bottom{font-size:70px}}
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="room">
+      <div class="word left">MEU&nbsp;ASSISTENTE&nbsp;IA</div>
+      <div class="word right">ATENDA&nbsp;MELHOR</div>
+      <div class="word top">VENDE&nbsp;MAIS</div>
+      <div class="word bottom">NUNCA&nbsp;PERCA&nbsp;CLIENTES</div>
+      <div class="word back1">INTELIGENTE</div>
+      <div class="word back2">PODEROSO</div>
+      <div class="word back3">ACESSÍVEL</div>
+    </div>
+  </div>
+  <div class="vignette"></div>
+
+  <div class="brand"><span class="raio">⚡</span>Meu Assistente IA</div>
+  <div class="top-nav">
+    <a href="#recursos">Recursos</a><a href="#pricing">Planos</a><a href="#como-funciona">Como funciona</a><a class="btn" href="#cadastro">Começar</a>
+  </div>
+
+  <div class="overlay">
+    <div class="eyebrow">Atendimento no WhatsApp com IA</div>
+    <h1>O futuro do atendimento<br><span class="hl">é inteligente</span></h1>
+    <p class="sub">Um assistente de IA que conversa pelos seus clientes no WhatsApp, 24 horas por dia. <b>Simples, poderoso e acessível.</b></p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#cadastro">Teste Grátis por 7 Dias</a>
+      <a class="btn-ghost" href="#como-funciona">Como funciona</a>
+    </div>
+  </div>
+  <div class="scroll-cue">role para explorar</div>
+</body>
+</html>

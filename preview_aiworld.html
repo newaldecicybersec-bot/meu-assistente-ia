@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow-x:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02060c;color:#e8f6f5}
+  #scene{position:fixed;inset:0;z-index:0;display:block}
+  .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 65% at 50% 50%, transparent 34%, rgba(2,6,12,.66) 100%)}
+  .content{position:relative;z-index:5}
+  nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 6vw;background:rgba(3,8,14,.35);backdrop-filter:blur(12px);border-bottom:1px solid rgba(80,220,200,.1)}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:1.45rem;color:#fff}
+  .raio{width:36px;height:36px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(135deg,#e8b64c,#c9922f);color:#241a00;font-size:19px}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:#9fc2c0;text-decoration:none;font-size:.94rem;font-weight:500}
+  .nav-links a:hover{color:#4fe6c8}
+  .btn{display:inline-block;padding:12px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.98rem;transition:.25s}
+  .btn-primary{background:#16d6b4;color:#04121a;box-shadow:0 10px 34px rgba(22,214,180,.3)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.05);color:#dff3f0;border:1px solid rgba(120,200,200,.22)}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 6vw;max-width:780px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;letter-spacing:3px;text-transform:uppercase;font-size:.8rem;color:#4fe6c8;font-weight:600;margin-bottom:22px}
+  .eyebrow .line{width:38px;height:1px;background:#4fe6c8;opacity:.6}
+  h1{font-size:clamp(2.3rem,5.4vw,4.2rem);line-height:1.03;font-weight:900;letter-spacing:-1.4px;color:#fff;text-shadow:0 0 50px rgba(31,208,176,.3)}
+  h1 .hl{color:#7ff2dc}
+  .sub{margin:24px 0 32px;font-size:clamp(1.05rem,1.9vw,1.32rem);color:#b8d0d0;line-height:1.6;max-width:580px}
+  .sub b{color:#fff}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+  .glass{background:rgba(8,16,24,.5);backdrop-filter:blur(16px);border:1px solid rgba(90,220,200,.12);border-radius:18px;padding:44px}
+  section.block{position:relative;padding:100px 6vw}
+  .kicker{color:#4fe6c8;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
+  h2{font-size:clamp(1.9rem,3.8vw,2.6rem);font-weight:800;color:#fff;margin:14px 0 18px;line-height:1.15}
+  h2 .hl{color:#7ff2dc}
+  .lead{color:#b8d0d0;font-size:1.12rem;max-width:640px;line-height:1.65}
+  .offer{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:42px}
+  .offer-item{display:flex;gap:18px;align-items:flex-start;background:rgba(8,16,24,.5);backdrop-filter:blur(14px);border:1px solid rgba(90,220,200,.12);border-radius:15px;padding:26px}
+  .offer-item .ic{width:48px;height:48px;flex:0 0 48px;border-radius:11px;background:rgba(22,214,180,.14);display:grid;place-items:center;font-size:22px}
+  .offer-item b{color:#fff;font-size:1.15rem;display:block;margin-bottom:6px}
+  .offer-item span{color:#9fbcbc;line-height:1.55;font-size:.97rem}
+  footer{position:relative;z-index:5;padding:52px 6vw;background:rgba(3,6,12,.82);border-top:1px solid rgba(90,220,200,.1);color:#6b8280;text-align:center}
+  @media(max-width:960px){.nav-links{display:none}.offer{grid-template-columns:1fr}.hero{min-height:92vh}.glass{padding:26px}}
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div class="vignette"></div>
+<div class="content">
+<nav>
+  <div class="brand"><span class="raio">⚡</span>Meu Assistente IA</div>
+  <div class="nav-links"><a href="#recursos">Recursos</a><a href="#pricing">Planos</a><a href="#como-funciona">Como funciona</a><a class="btn btn-primary" href="#cadastro">Começar Agora</a></div>
+</nav>
+<section class="hero" id="home">
+  <div class="eyebrow"><span class="line"></span> Mundo de IA para o seu negócio</div>
+  <h1>O futuro do atendimento <span class="hl">é inteligente</span></h1>
+  <p class="sub">Um assistente de IA que conversa pelos seus clientes no WhatsApp, 24 horas por dia. <b>Simples, poderoso e acessível.</b></p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#cadastro">Teste Grátis por 7 Dias</a>
+    <a class="btn btn-ghost" href="#como-funciona">Como funciona</a>
+  </div>
+</section>
+<section class="block" id="oferta">
+  <div class="kicker">O que oferecemos</div>
+  <h2>Assistente de IA no WhatsApp <span class="hl">a partir de R$29/mês</span></h2>
+  <div class="offer">
+    <div class="offer-item"><div class="ic">💬</div><div><b>Atendimento humano</b><span>Conversa natural, 24 horas por dia, sem fazer o cliente esperar.</span></div></div>
+    <div class="offer-item"><div class="ic">⚡</div><div><b>Resposta em segundos</b><span>Configure em 5 minutos e comece a atender hoje mesmo.</span></div></div>
+    <div class="offer-item"><div class="ic">✅</div><div><b>Teste grátis por 7 dias</b><span>Sem cartão, sem fidelidade. Cancele quando quiser.</span></div></div>
+    <div class="offer-item"><div class="ic">📈</div><div><b>Aprende com cada conversa</b><span>Quanto mais usa, mais inteligente e humana ela fica.</span></div></div>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Meu Assistente IA · Feito no Brasil</p>
+  <p style="margin-top:10px"><a href="termos-de-uso.html" style="color:#4fe6c8;text-decoration:none">Termos</a> · <a href="politica-de-privacidade.html" style="color:#4fe6c8;text-decoration:none">Privacidade</a> · <a href="politica-de-cookies.html" style="color:#4fe6c8;text-decoration:none">Cookies</a></p>
+</footer>
+</div>
+
+<script>
+// MUNDO DE IA BINARIO — codigo binario fluindo + globo digital + rede neural
+const canvas=document.getElementById('scene');
+const ctx=canvas.getContext('2d');
+let W,H,cx,cy;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cx=W/2;cy=H/2;}
+resize();addEventListener('resize',resize);
+
+// colunas de codigo binario (chuva suave)
+const fontSize=16;
+let cols=Math.floor(W/fontSize);
+const drops=[];
+for(let i=0;i<cols;i++)drops[i]=Math.random()*H/fontSize;
+
+// globo digital (rede neural esferica)
+const globePts=[];
+for(let i=0;i<220;i++){
+  const phi=Math.acos(2*Math.random()-1), theta=Math.random()*Math.PI*2;
+  globePts.push({phi,theta});
+}
+let rot=0;
+
+// particulas de dados
+const PN=260, parts=[];
+for(let i=0;i<PN;i++)parts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.8+.4});
+
+function draw(){
+  ctx.fillStyle='rgba(2,6,12,0.12)';ctx.fillRect(0,0,W,H);
+
+  // chuva binaria
+  ctx.font=fontSize+'px monospace';
+  for(let i=0;i<cols;i++){
+    const ch=Math.random()<0.5?'0':'1';
+    const y=drops[i]*fontSize;
+    const bright=Math.random()<0.06;
+    ctx.fillStyle=bright?'rgba(160,255,235,0.85)':'rgba(40,180,160,0.32)';
+    ctx.fillText(ch,i*fontSize,y);
+    if(y>H && Math.random()>0.975)drops[i]=0;
+    drops[i]+=0.45;
+  }
+
+  // globo digital no centro
+  rot+=0.0032;
+  const R=Math.min(W,H)*0.28;
+  const proj=[];
+  for(const p of globePts){
+    const x=Math.sin(p.phi)*Math.cos(p.theta+rot), y=Math.cos(p.phi), z=Math.sin(p.phi)*Math.sin(p.theta+rot);
+    const scale=1/(1.9+z);
+    const sx=cx+x*R*1.6, sy=cy+y*R;
+    proj.push({sx,sy,z,scale});
+  }
+  // ligacoes (rede)
+  ctx.lineWidth=0.6;
+  for(let i=0;i<proj.length;i+=3){
+    const a=proj[i], b=proj[(i+7)%proj.length];
+    const dist=Math.hypot(a.sx-b.sx,a.sy-b.sy);
+    if(dist<90){ctx.strokeStyle=`rgba(70,220,200,${0.12*a.scale})`;
+      ctx.beginPath();ctx.moveTo(a.sx,a.sy);ctx.lineTo(b.sx,b.sy);ctx.stroke();}
+  }
+  // nos
+  for(const p of proj){
+    const s=p.scale*2.2;
+    ctx.fillStyle=`rgba(${p.z>0?150:60},240,215,${0.35+p.scale*0.4})`;
+    ctx.beginPath();ctx.arc(p.sx,p.sy,Math.max(s,0.5),0,6.28);ctx.fill();
+  }
+  // halo do globo
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.9);
+  g.addColorStop(0,'rgba(31,208,176,0.14)');g.addColorStop(1,'transparent');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+  // particulas de dados
+  for(const p of parts){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.fillStyle='rgba(120,230,210,0.5)';
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

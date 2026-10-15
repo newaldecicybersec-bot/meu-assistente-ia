@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02040a}
+  #scene{position:fixed;inset:0;z-index:0;display:block}
+  .overlay{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+  .brand{position:fixed;top:24px;left:5vw;z-index:20;font-weight:900;font-size:1.35rem;display:flex;align-items:center;gap:10px;color:#fff}
+  .brand .raio{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(135deg,#e8b64c,#c9922f);color:#241a00;font-size:18px}
+  .top-nav{position:fixed;top:28px;right:5vw;z-index:20;display:flex;gap:26px;align-items:center}
+  .top-nav a{color:#a7c2cc;text-decoration:none;font-size:.92rem;font-weight:500}
+  .top-nav .btn{background:#1fd0b0;color:#04121a;padding:11px 22px;border-radius:22px;font-weight:700}
+  .eyebrow{letter-spacing:4px;text-transform:uppercase;font-size:.8rem;color:#3fe0c0;font-weight:600;margin-bottom:20px}
+  h1{font-size:clamp(2.2rem,5vw,4.1rem);font-weight:900;letter-spacing:-1.3px;line-height:1.04;color:#fff;text-shadow:0 0 60px rgba(31,208,176,.4)}
+  h1 .hl{color:#7ff0dc}
+  .sub{margin:20px 0 30px;font-size:clamp(1.02rem,1.8vw,1.28rem);color:#b6ccd2;max-width:560px;line-height:1.55}
+  .sub b{color:#fff}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn-primary{background:#1fd0b0;color:#04121a;padding:15px 32px;border-radius:26px;font-weight:700;text-decoration:none;font-size:1.05rem;transition:.25s}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(31,208,176,.32)}
+  .btn-ghost{background:rgba(255,255,255,.07);color:#fff;padding:15px 32px;border-radius:26px;font-weight:700;text-decoration:none;font-size:1.05rem;border:1px solid rgba(120,200,200,.28)}
+  .scroll-cue{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;color:#5fd8c4;font-size:.76rem;letter-spacing:3px;text-transform:uppercase;opacity:.85}
+  .vignette{position:fixed;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse 62% 62% at 50% 50%, transparent 38%, rgba(2,4,10,.6) 100%)}
+  @media(max-width:720px){.top-nav{display:none}}
+</style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+  <div class="vignette"></div>
+  <div class="brand"><span class="raio">⚡</span>Meu Assistente IA</div>
+  <div class="top-nav"><a href="#recursos">Recursos</a><a href="#pricing">Planos</a><a href="#como-funciona">Como funciona</a><a class="btn" href="#cadastro">Começar</a></div>
+  <div class="overlay">
+    <div class="eyebrow">Viaje pelo futuro do atendimento</div>
+    <h1>Entre no núcleo do<br><span class="hl">atendimento inteligente</span></h1>
+    <p class="sub">Um assistente de IA que conversa pelos seus clientes no WhatsApp, 24 horas por dia. <b>Simples, poderoso e acessível.</b></p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#cadastro">Teste Grátis por 7 Dias</a>
+      <a class="btn-ghost" href="#como-funciona">Como funciona</a>
+    </div>
+  </div>
+  <div class="scroll-cue">acelere com o mouse</div>
+
+<script>
+// CORREDOR DE LUZ (warp) — raios de luz passando, mundo ao lado, portal no fundo
+const canvas=document.getElementById('scene');
+const ctx=canvas.getContext('2d');
+let W,H,cx,cy;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cx=W/2;cy=H/2;}
+resize();addEventListener('resize',resize);
+
+// estrelas/raios de luz
+const N=520, stars=[];
+for(let i=0;i<N;i++)stars.push({x:(Math.random()-.5)*W,y:(Math.random()-.5)*H,z:Math.random()*W,amber:Math.random()<0.12});
+
+let speed=6, targetSpeed=6;
+addEventListener('mousemove',e=>{targetSpeed=6+ (e.clientY/innerHeight)*16;});
+addEventListener('wheel',()=>{speed+=2;});
+
+// planeta passando do lado (mundo la fora)
+let planet={x:W*1.25,y:H*0.32,r:Math.min(W,H)*0.16};
+
+function draw(){
+  // rastro escuro
+  ctx.fillStyle='rgba(2,4,10,0.28)';ctx.fillRect(0,0,W,H);
+
+  // halo central (portal de luz)
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*0.42);
+  g.addColorStop(0,'rgba(80,230,210,0.16)');g.addColorStop(0.5,'rgba(40,140,160,0.06)');g.addColorStop(1,'transparent');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+  // planeta do lado (mundo passando)
+  planet.x-=speed*0.25;
+  if(planet.x < -planet.r*2){planet.x=W*1.3;planet.y=H*(0.22+Math.random()*0.4);}
+  const pg=ctx.createRadialGradient(planet.x-planet.r*0.4,planet.y-planet.r*0.4,planet.r*0.2,planet.x,planet.y,planet.r);
+  pg.addColorStop(0,'rgba(70,150,210,0.55)');pg.addColorStop(0.7,'rgba(24,60,110,0.35)');pg.addColorStop(1,'rgba(6,14,30,0)');
+  ctx.beginPath();ctx.fillStyle=pg;ctx.arc(planet.x,planet.y,planet.r,0,6.28);ctx.fill();
+
+  // raios de luz (warp) saindo do centro
+  speed+=(targetSpeed-speed)*0.03;
+  for(const s of stars){
+    s.z-=speed;
+    if(s.z<=1){s.z=W;s.x=(Math.random()-.5)*W;s.y=(Math.random()-.5)*H;}
+    const k=180/s.z, px=cx+s.x*k, py=cy+s.y*k;
+    if(px<0||px>W||py<0||py>H)continue;
+    const size=(1-s.z/W)*3.2, alpha=(1-s.z/W)*0.95;
+    const col=s.amber?`rgba(232,182,76,${alpha})`:`rgba(120,240,220,${alpha})`;
+    const k2=180/(s.z+speed*3);
+    ctx.strokeStyle=col;ctx.lineWidth=Math.max(size*0.8,0.5);
+    ctx.beginPath();ctx.moveTo(cx+s.x*k2,cy+s.y*k2);ctx.lineTo(px,py);ctx.stroke();
+    ctx.fillStyle=col;ctx.beginPath();ctx.arc(px,py,Math.max(size*0.5,0.4),0,6.28);ctx.fill();
+  }
+
+  // portal de luz no fundo (coracao do tunel)
+  const core=ctx.createRadialGradient(cx,cy,0,cx,cy,120);
+  core.addColorStop(0,'rgba(200,255,245,0.9)');core.addColorStop(0.4,'rgba(90,230,210,0.35)');core.addColorStop(1,'transparent');
+  ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,120,0,6.28);ctx.fill();
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

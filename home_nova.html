@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA — O Futuro do Atendimento é Inteligente</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#05070d;color:#eaf2ff;overflow-x:hidden}
+  .glow-bg{position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(900px 600px at 78% 12%, rgba(20,220,180,.18), transparent 60%),
+    radial-gradient(700px 500px at 12% 85%, rgba(20,180,220,.14), transparent 60%),
+    linear-gradient(160deg,#05070d 0%,#071019 55%,#04080e 100%)}
+  .grid{position:fixed;inset:0;z-index:-1;opacity:.35;
+    background-image:linear-gradient(rgba(30,220,190,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(30,220,190,.10) 1px,transparent 1px);
+    background-size:52px 52px;mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 40%,transparent 100%)}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 6vw;position:relative;z-index:5}
+  .logo{display:flex;align-items:center;gap:10px;font-size:1.55rem;font-weight:800;letter-spacing:.3px}
+  .star{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;
+    background:linear-gradient(135deg,#12e0b6,#0ea5c9);box-shadow:0 0 18px rgba(20,220,180,.6);font-size:19px}
+  .logo b{background:linear-gradient(90deg,#eaf2ff,#9fe9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{color:#a9c6d6;text-decoration:none;font-size:.95rem;font-weight:500}
+  .nav-links a:hover{color:#12e0b6}
+  .btn{display:inline-block;padding:13px 26px;border-radius:30px;font-weight:700;text-decoration:none;cursor:pointer;border:none;font-size:1rem}
+  .btn-primary{background:linear-gradient(120deg,#12e0b6,#0ea5c9);color:#04121a;box-shadow:0 8px 30px rgba(18,224,182,.4)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:#dff3ff;border:1px solid rgba(120,220,220,.25)}
+
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;padding:40px 6vw 70px}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:30px;
+    background:rgba(18,224,182,.12);border:1px solid rgba(18,224,182,.35);color:#7ff0d6;font-size:.85rem;font-weight:600;margin-bottom:22px}
+  h1{font-size:4.1rem;line-height:1.05;font-weight:800;letter-spacing:-1px}
+  h1 .hl{background:linear-gradient(90deg,#12e0b6,#3ad6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin:24px 0 32px;font-size:1.35rem;color:#b9d2e0;line-height:1.5;max-width:520px}
+  .sub b{color:#eaf2ff}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .stats{display:flex;gap:46px;margin-top:52px}
+  .stat .n{font-size:2.6rem;font-weight:800;background:linear-gradient(90deg,#12e0b6,#3ad6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{color:#8fb2c4;font-size:.95rem;margin-top:4px}
+
+  /* phone mockup */
+  .phone-wrap{position:relative;display:grid;place-items:center;min-height:560px}
+  .halo{position:absolute;width:430px;height:430px;border-radius:50%;
+    background:radial-gradient(circle,rgba(18,224,182,.35),transparent 65%);filter:blur(10px)}
+  .phone{position:relative;width:300px;height:600px;border-radius:42px;background:linear-gradient(160deg,#0c1620,#070d14);
+    border:2px solid rgba(120,230,210,.35);box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 60px rgba(18,224,182,.25);padding:14px}
+  .screen{width:100%;height:100%;border-radius:32px;background:#0b141a;overflow:hidden;display:flex;flex-direction:column}
+  .wa-top{background:#12212b;padding:14px 16px;display:flex;align-items:center;gap:11px}
+  .wa-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#12e0b6,#0ea5c9);display:grid;place-items:center;font-size:18px}
+  .wa-name{font-weight:700;font-size:.95rem;color:#eaf2ff}
+  .wa-status{font-size:.72rem;color:#7fe0c6}
+  .wa-body{flex:1;padding:16px 13px;display:flex;flex-direction:column;gap:11px;
+    background:linear-gradient(180deg,#0b141a,#0a1218)}
+  .msg{max-width:82%;padding:10px 13px;border-radius:14px;font-size:.82rem;line-height:1.45}
+  .msg.them{background:#16242e;color:#d6e6f0;border-top-left-radius:4px;align-self:flex-start}
+  .msg.me{background:linear-gradient(120deg,#0f6b57,#0c8f74);color:#eafff8;border-top-right-radius:4px;align-self:flex-end}
+  .typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;background:#16242e;border-radius:14px}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#7fe0c6;display:inline-block;animation:bl 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes bl{0%,60%,100%{opacity:.3}30%{opacity:1}}
+
+  /* AxyIA canto inferior esquerdo */
+  .axyia{position:fixed;left:22px;bottom:22px;z-index:20;display:flex;align-items:flex-end;gap:12px}
+  .axyia .bubble{background:rgba(10,22,30,.9);border:1px solid rgba(18,224,182,.4);padding:11px 15px;border-radius:16px;
+    font-size:.82rem;color:#cdeef0;max-width:200px;backdrop-filter:blur(8px);margin-bottom:34px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .axyia img{width:118px;height:118px;object-fit:cover;border-radius:50%;border:2px solid rgba(18,224,182,.5);
+    box-shadow:0 0 30px rgba(18,224,182,.45);background:#0c1620}
+
+  @media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}.sub{margin-inline:auto}
+    h1{font-size:2.7rem}.nav-links{display:none}.stats{justify-content:center;flex-wrap:wrap;gap:28px}.phone-wrap{margin-top:30px}}
+</style>
+</head>
+<body>
+<div class="glow-bg"></div>
+<div class="grid"></div>
+
+<nav>
+  <div class="logo"><span class="star">✦</span><b>Meu Assistente IA</b></div>
+  <div class="nav-links">
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#pricing">Planos</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#faq">Dúvidas</a>
+    <a class="btn btn-primary" href="#pricing">Teste Grátis</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="badge">✦ Inteligência que trabalha por você</div>
+    <h1>O Futuro do<br>Atendimento é<br><span class="hl">Inteligente!</span></h1>
+    <p class="sub">Seu assistente de IA para WhatsApp.<br><b>Simples, poderoso e acessível.</b></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#pricing">Teste Grátis por 7 Dias</a>
+      <a class="btn btn-ghost" href="#como-funciona">Como funciona</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">197M</div><div class="l">Brasileiros no WhatsApp</div></div>
+      <div class="stat"><div class="n">24/7</div><div class="l">Atendendo sem parar</div></div>
+      <div class="stat"><div class="n">5min</div><div class="l">Para configurar</div></div>
+    </div>
+  </div>
+
+  <div class="phone-wrap">
+    <div class="halo"></div>
+    <div class="phone">
+      <div class="screen">
+        <div class="wa-top">
+          <div class="wa-av">✦</div>
+          <div>
+            <div class="wa-name">AxyIA · Assistente</div>
+            <div class="wa-status">online agora</div>
+          </div>
+        </div>
+        <div class="wa-body">
+          <div class="msg them">Oi! Posso agendar uma reunião amanhã?</div>
+          <div class="msg me">Claro! Tenho horário às 10h ou às 15h. Qual prefere? 😊</div>
+          <div class="msg them">15h fica ótimo</div>
+          <div class="msg me">Prontinho! Agendado para amanhã às 15h. Já enviei o convite no seu e-mail ✅</div>
+          <div class="typing"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="axyia">
+  <div class="bubble">Olá! Eu sou a <b>AxyIA</b>. Posso te ajudar a conhecer o Meu Assistente IA?</div>
+  <img src="axyia.jpg" alt="AxyIA">
+</div>
+
+</body>
+</html>

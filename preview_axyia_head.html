@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Assistente IA</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow-x:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#05070d;color:#eef4f6}
+  #scene{position:fixed;inset:0;z-index:0;display:block}
+  .content{position:relative;z-index:5}
+  nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 6vw;background:rgba(5,8,14,.32);backdrop-filter:blur(12px);border-bottom:1px solid rgba(120,180,200,.1)}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:1.45rem;color:#fff}
+  .raio{width:36px;height:36px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(135deg,#e8c06a,#c9922f);color:#2a1e00;font-size:19px}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:#b9c6cf;text-decoration:none;font-size:.94rem;font-weight:500}
+  .nav-links a:hover{color:#e8c06a}
+  .btn{display:inline-block;padding:12px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.98rem;transition:.25s}
+  .btn-primary{background:linear-gradient(120deg,#e8c06a,#c9922f);color:#2a1e00;box-shadow:0 10px 34px rgba(232,192,106,.28)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.05);color:#eef4f6;border:1px solid rgba(150,180,200,.24)}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 6vw;max-width:56%}
+  .eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:.8rem;color:#e8c06a;font-weight:600;margin-bottom:22px}
+  h1{font-size:clamp(2.3rem,5.2vw,4.1rem);line-height:1.03;font-weight:900;letter-spacing:-1.3px;color:#fff}
+  h1.wordmark{font-size:clamp(2.8rem,6.4vw,5.2rem);letter-spacing:-2px;animation:flutuar 6s ease-in-out infinite;display:inline-block}
+  h1.silver{background:linear-gradient(180deg,#ffffff,#b9c2c9);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+  @keyframes flutuar{0%,100%{transform:translateY(0) rotateX(0)}50%{transform:translateY(-18px)}}
+  h1 .gold{background:linear-gradient(180deg,#f4d788,#c9922f);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin:24px 0 32px;font-size:clamp(1.05rem,1.9vw,1.32rem);color:#c3d0d8;line-height:1.6;max-width:560px}
+  .sub b{color:#fff}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+  .glass{background:rgba(10,16,24,.5);backdrop-filter:blur(16px);border:1px solid rgba(150,180,200,.12);border-radius:18px;padding:44px}
+  section.block{position:relative;padding:100px 6vw}
+  .kicker{color:#e8c06a;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
+  h2{font-size:clamp(1.9rem,3.8vw,2.6rem);font-weight:800;color:#fff;margin:14px 0 18px;line-height:1.15}
+  h2 .gold{background:linear-gradient(180deg,#f4d788,#c9922f);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .offer{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:42px}
+  .offer-item{display:flex;gap:18px;align-items:flex-start;background:rgba(10,16,24,.5);backdrop-filter:blur(14px);border:1px solid rgba(150,180,200,.12);border-radius:15px;padding:26px}
+  .offer-item .ic{width:48px;height:48px;flex:0 0 48px;border-radius:11px;background:rgba(232,192,106,.14);display:grid;place-items:center;font-size:22px}
+  .offer-item b{color:#fff;font-size:1.15rem;display:block;margin-bottom:6px}
+  .offer-item span{color:#a6b6c0;line-height:1.55;font-size:.97rem}
+  footer{position:relative;z-index:5;padding:52px 6vw;background:rgba(4,6,12,.82);border-top:1px solid rgba(150,180,200,.1);color:#72828c;text-align:center}
+  @media(max-width:960px){.nav-links{display:none}.offer{grid-template-columns:1fr}.hero{max-width:100%}.glass{padding:26px}}
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div class="content">
+<nav>
+  <div class="brand"><span class="raio">⚡</span>Meu Assistente IA</div>
+  <div class="nav-links">
+    <a href="#recursos">Recursos</a>
+    <a href="#pricing">Planos</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a class="btn btn-ghost" href="#entrar">Entrar</a>
+    <a class="btn btn-primary" href="#cadastro">Cadastrar</a>
+  </div>
+</nav>
+<section class="hero" id="home">
+  <h1 class="wordmark silver">Meu Assistente IA</h1>
+</section>
+<section class="block" id="oferta">
+  <div class="kicker">O que oferecemos</div>
+  <h2>Assistente de IA no WhatsApp <span class="gold">a partir de R$29/mês</span></h2>
+  <div class="offer">
+    <div class="offer-item"><div class="ic">💬</div><div><b>Atendimento humano</b><span>Conversa natural, 24 horas por dia, sem fazer o cliente esperar.</span></div></div>
+    <div class="offer-item"><div class="ic">⚡</div><div><b>Resposta em segundos</b><span>Configure em 5 minutos e comece a atender hoje mesmo.</span></div></div>
+    <div class="offer-item"><div class="ic">✅</div><div><b>Teste grátis por 7 dias</b><span>Sem cartão, sem fidelidade. Cancele quando quiser.</span></div></div>
+    <div class="offer-item"><div class="ic">📈</div><div><b>Aprende com cada conversa</b><span>Quanto mais usa, mais inteligente e humana ela fica.</span></div></div>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Meu Assistente IA · Feito no Brasil</p>
+  <p style="margin-top:10px"><a href="termos-de-uso.html" style="color:#e8c06a;text-decoration:none">Termos</a> · <a href="politica-de-privacidade.html" style="color:#e8c06a;text-decoration:none">Privacidade</a> · <a href="politica-de-cookies.html" style="color:#e8c06a;text-decoration:none">Cookies</a></p>
+</footer>
+</div>
+
+<script>
+const canvas=document.getElementById('scene');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;}
+resize();addEventListener('resize',resize);
+
+// rosto da AxyIA em particulas (amostra a imagem)
+let facePts=[];
+const img=new Image();
+img.src='axyia.jpg';
+img.onload=()=>{
+  const off=document.createElement('canvas');off.width=off.height=180;
+  const octx=off.getContext('2d');octx.drawImage(img,0,0,180,180);
+  const dat=octx.getImageData(0,0,180,180).data;
+  for(let y=0;y<180;y+=2)for(let x=0;x<180;x+=2){
+    const i=(y*180+x)*4;const b=(dat[i]+dat[i+1]+dat[i+2])/3;
+    if(b>42 && dat[i+3]>40){
+      facePts.push({x:(x-90)/90, y:(y-90)/90, b});
+    }
+  }
+};
+
+// estrelas/particulas do fundo
+const PN=260,stars=[];
+for(let i=0;i<PN;i++)stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.3,vy:(Math.random()-.5)*.0006});
+// colunas binarias douradas na esquerda
+const cols=[];
+for(let i=0;i<10;i++)cols.push({x:0.03+i*0.028, y:Math.random(), speed:0.0012+Math.random()*0.002});
+
+function draw(){
+  ctx.fillStyle='rgba(5,7,13,0.22)';ctx.fillRect(0,0,W,H);
+
+  // particulas de fundo
+  for(const s of stars){s.y+=s.vy;if(s.y<0)s.y=1;if(s.y>1)s.y=0;
+    ctx.fillStyle='rgba(150,200,215,0.5)';ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,6.28);ctx.fill();}
+
+
+  // rosto da AxyIA em particulas (lado direito)
+  const cx=W*0.72, cy=H*0.52, R=Math.min(W,H)*0.34;
+  const t=Date.now()*0.001;
+  // anel brilhante
+  const rg=ctx.createRadialGradient(cx,cy,R*0.62,cx,cy,R*1.05);
+  rg.addColorStop(0,'rgba(120,190,230,0)');rg.addColorStop(0.72,'rgba(120,190,230,0.18)');rg.addColorStop(1,'rgba(120,190,230,0)');
+  ctx.fillStyle=rg;ctx.beginPath();ctx.arc(cx,cy,R*1.05,0,6.28);ctx.fill();
+  ctx.strokeStyle='rgba(150,210,235,0.35)';ctx.lineWidth=1.4;
+  ctx.beginPath();ctx.arc(cx,cy,R*0.92,0,6.28);ctx.stroke();
+
+  for(const p of facePts){
+    const wob=Math.sin(t*1.4 + p.x*6 + p.y*6)*2.2;
+    const sx=cx + p.x*R + wob;
+    const sy=cy + p.y*R*1.05 + Math.cos(t + p.x*5)*1.6;
+    const a=0.35+p.b/255*0.6;
+    const size=1.1+ p.b/255*1.6;
+    const teal = p.b>150;
+    ctx.fillStyle=teal?`rgba(210,235,250,${a})`:`rgba(120,195,235,${a})`;
+    ctx.beginPath();ctx.arc(sx,sy,size,0,6.28);ctx.fill();
+  }
+  // halo do rosto
+  const hg=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+  hg.addColorStop(0,'rgba(120,190,235,0.10)');hg.addColorStop(1,'transparent');
+  ctx.fillStyle=hg;ctx.fillRect(cx-R,cy-R,R*2,R*2);
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
