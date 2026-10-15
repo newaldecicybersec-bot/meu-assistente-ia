@@ -29,12 +29,41 @@ app.post("/api/enviar-codigo", async (req, res) => {
       from: FROM,
       to: email,
       subject: "Confirme seu e-mail — Meu Agente IA",
-      html: `<div style="font-family:Segoe UI,Arial,sans-serif;background:#0a0e16;padding:32px;color:#c3ccd6">
-        <h2 style="color:#f4c15a;margin:0 0 12px">Meu Agente IA</h2>
-        <p style="font-size:16px">Recebemos seu cadastro. Use o codigo abaixo para confirmar seu e-mail:</p>
-        <div style="font-size:32px;letter-spacing:8px;font-weight:700;color:#eef3f9;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;text-align:center;margin:18px 0">${codigo}</div>
-        <p style="color:#8fa0b0;font-size:13px">Se voce nao fez este cadastro, ignore este e-mail.</p>
-      </div>`
+      html: `<div style="margin:0;padding:0;background:#0a0e16;font-family:Segoe UI,Arial,Helvetica,sans-serif">
+<div style="max-width:600px;margin:0 auto;background:#0e141f">
+  <div style="background:linear-gradient(135deg,#141c2e,#0e141f);padding:30px 40px;text-align:center">
+    <img src="https://omeuassistenteia.com.br/logo_axia_email.png" alt="Meu Agente IA" width="72" height="72" style="border-radius:16px">
+    <div style="margin-top:16px;font-size:24px;font-weight:800;color:#eef3f9">Meu <span style="color:#f4c15a">Agente IA</span></div>
+    <div style="color:#86b3c9;font-size:13px;letter-spacing:1px;margin-top:4px">ATENDIMENTO INTELIGENTE &middot; 24 HORAS</div>
+  </div>
+  <div style="padding:44px 40px">
+    <h1 style="font-size:30px;line-height:1.25;color:#eef3f9;font-weight:800;margin:0 0 18px">Estamos felizes por ter voce aqui!</h1>
+    <p style="font-size:17px;line-height:1.8;color:#aab6c2;margin:0 0 30px">Sua conta esta quase pronta. Confirme seu e-mail abaixo e libere a inteligencia artificial que vai atender seus clientes em todos os canais, 24 horas por dia.</p>
+    <div style="background:rgba(244,193,90,.10);border:1px solid rgba(244,193,90,.35);border-radius:14px;padding:28px;text-align:center;margin:0 0 32px">
+      <div style="font-size:13px;color:#f4c15a;letter-spacing:3px;margin-bottom:12px">SEU CODIGO DE CONFIRMACAO</div>
+      <div style="font-size:44px;letter-spacing:14px;font-weight:800;color:#f4c15a">${codigo}</div>
+    </div>
+    <div style="margin:0 0 32px">
+      <div style="display:flex;align-items:flex-start;margin-bottom:18px"><span style="color:#2fe0c4;font-size:20px;margin-right:14px">&#10003;</span><div style="color:#cdd9e8;font-size:16px;line-height:1.6">Atendimento em <strong style="color:#eef3f9">todos os canais</strong>: WhatsApp, Instagram, Facebook, Telegram e mais.</div></div>
+      <div style="display:flex;align-items:flex-start;margin-bottom:18px"><span style="color:#2fe0c4;font-size:20px;margin-right:14px">&#10003;</span><div style="color:#cdd9e8;font-size:16px;line-height:1.6">Resposta em segundos, <strong style="color:#eef3f9">24 horas por dia</strong>, sem perder nenhum cliente.</div></div>
+      <div style="display:flex;align-items:flex-start;margin-bottom:18px"><span style="color:#2fe0c4;font-size:20px;margin-right:14px">&#10003;</span><div style="color:#cdd9e8;font-size:16px;line-height:1.6">Linguagem humana e <strong style="color:#eef3f9">teste gratis por 7 dias</strong>, sem fidelidade.</div></div>
+    </div>
+    <div style="text-align:center;margin:0 0 12px">
+      <a href="https://omeuassistenteia.com.br/confirmar.html" style="display:inline-block;background:linear-gradient(120deg,#f4c15a,#e8a93a);color:#241700;font-size:17px;font-weight:700;padding:16px 42px;border-radius:12px;text-decoration:none">Confirmar meu e-mail</a>
+    </div>
+    <p style="color:#7d97a8;font-size:13px;line-height:1.7;text-align:center;margin:18px 0 0">Este codigo expira em <strong style="color:#c3ccd6">15 minutos</strong>. Se voce nao fez este cadastro, pode ignorar este e-mail com seguranca.</p>
+  </div>
+  <div style="background:#0a0e16;padding:28px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06)">
+    <div style="color:#6b7783;font-size:12px;line-height:2">
+      Meu Agente IA &middot; Atendimento inteligente em todos os canais<br>
+      <a href="https://omeuassistenteia.com.br" style="color:#86b3c9;text-decoration:none">omeuassistenteia.com.br</a> &middot; 
+      <a href="https://omeuassistenteia.com.br/politica-de-privacidade.html" style="color:#86b3c9;text-decoration:none">Privacidade</a> &middot; 
+      <a href="https://omeuassistenteia.com.br/fale-conosco.html" style="color:#86b3c9;text-decoration:none">Contato</a><br><br>
+      Voce recebeu este e-mail porque se cadastrou no Meu Agente IA.
+    </div>
+  </div>
+</div>
+</div>`
     });
     res.json({ ok:true });
   } catch(e){
