@@ -38,6 +38,17 @@ header{position:absolute;top:0;left:0;right:0;z-index:10;padding:20px 34px;displ
 .foot{text-align:center;margin-top:18px;font-size:14px;color:#86b3c9}
 .foot a{color:#86b3c9}
 @media(max-width:820px){.hero{display:none}.split{padding:0}}
+
+/* COOKIE BANNER (LGPD) */
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;background:rgba(17,22,32,.97);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.cookie-banner p{color:#c3ccd6;font-size:14px;line-height:1.6;flex:1;min-width:240px;margin:0}
+.cookie-banner p a{color:#86b3c9;text-decoration:underline}
+.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-actions button{padding:10px 20px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:.2s}
+.cookie-accept{background:linear-gradient(120deg,#f4c15a,#e8a93a);color:#241700;border:none}
+.cookie-manage{background:transparent;color:#c3ccd6;border:1px solid rgba(255,255,255,.18)}
+.cookie-manage:hover{border-color:rgba(255,255,255,.35)}
+@media(max-width:600px){.cookie-banner{flex-direction:column;align-items:stretch}.cookie-actions{justify-content:stretch}.cookie-actions button{flex:1}}
 </style></head><body>
 <header>
   <a class="logo" href="index.html"><span class="raio"><i class="fa-solid fa-bolt"></i></span><b>Meu</b> <span>Agente IA</span></a>
@@ -67,4 +78,26 @@ header{position:absolute;top:0;left:0;right:0;z-index:10;padding:20px 34px;displ
     <div class="foot">Ainda nao tem conta? <a href="criar-conta.html">Criar conta</a></div>
   </div></div>
 </div>
+
+<!-- COOKIE BANNER (LGPD) -->
+<div class="cookie-banner" id="cookieBanner" style="display:none">
+  <p>Usamos cookies para melhorar sua experiencia e analisar o uso do site. Ao continuar, voce concorda com a nossa <a href="politica-de-cookies.html">Politica de Cookies</a> e a <a href="politica-de-privacidade.html">Politica de Privacidade</a>.</p>
+  <div class="cookie-actions">
+    <button class="cookie-manage" onclick="location.href='politica-de-cookies.html'">Gerenciar</button>
+    <button class="cookie-accept" onclick="aceitarCookies()">Aceitar</button>
+  </div>
+</div>
+<script>
+(function(){
+  try{
+    if(!localStorage.getItem('cookiesAceitos')){
+      document.getElementById('cookieBanner').style.display='flex';
+    }
+  }catch(e){document.getElementById('cookieBanner').style.display='flex';}
+})();
+function aceitarCookies(){
+  try{localStorage.setItem('cookiesAceitos','1');}catch(e){}
+  document.getElementById('cookieBanner').style.display='none';
+}
+</script>
 </body></html>
