@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = process.env.FROM_EMAIL || "Meu Agente IA <onboarding@resend.dev>";
+const FROM = process.env.FROM_EMAIL || "Meu Agente IA <noreply@omeuassistenteia.com.br>";
 
 // guarda codigos temporariamente (em producao usar banco/redis)
 const codigos = new Map();
