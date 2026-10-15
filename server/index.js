@@ -33,7 +33,7 @@ app.post("/api/enviar-codigo", async (req, res) => {
 <div style="max-width:600px;margin:0 auto;background:#0e141f">
   <div style="background:linear-gradient(135deg,#141c2e,#0e141f);padding:30px 40px;text-align:center">
     <img src="https://omeuassistenteia.com.br/logo_axia_email.png" alt="Meu Assistente IA" width="72" height="72" style="border-radius:16px">
-    <div style="margin-top:16px;font-size:24px;font-weight:800;color:#eef3f9">Meu <span style="color:#f4c15a">Agente IA</span></div>
+    <div style="margin-top:16px;font-size:24px;font-weight:800;color:#eef3f9">Meu <span style="color:#f4c15a">Assistente IA</span></div>
     <div style="color:#86b3c9;font-size:13px;letter-spacing:1px;margin-top:4px">ATENDIMENTO INTELIGENTE &middot; 24 HORAS</div>
   </div>
   <div style="padding:44px 40px">
