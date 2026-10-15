@@ -79,4 +79,25 @@ document.addEventListener('dragstart', e => { if(e.target.tagName==='IMG') e.pre
 document.addEventListener('copy', e => { if(window.getSelection && !window.getSelection().toString()) e.preventDefault(); });
 </script>
 <style>img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}</style></body>
+
+<script>
+  const API="https://backend-agente-x8k2.onrender.com";
+  function planoAtual(){
+    // tenta pegar o plano salvo ou o da URL
+    const u=new URLSearchParams(location.search).get('plano');
+    return u || localStorage.getItem('planoEscolhido') || 'basico';
+  }
+  const btn=document.getElementById('btnPagamento');
+  if(btn) btn.addEventListener('click', async ()=>{
+    const email=localStorage.getItem('emailCadastro')||'';
+    const plano=planoAtual();
+    btn.textContent='Abrindo pagamento...'; btn.disabled=true;
+    try{
+      const r=await fetch(API+'/api/criar-pagamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plano,email})});
+      const j=await r.json();
+      if(j.ok){ location.href=j.init_point; }
+      else { alert(j.erro||'Falha no pagamento'); btn.textContent='Pagar'; btn.disabled=false; }
+    }catch(e){ alert('Erro de conexao'); btn.textContent='Pagar'; btn.disabled=false; }
+  });
+</script>
 </html>

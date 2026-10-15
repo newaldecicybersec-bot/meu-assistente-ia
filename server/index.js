@@ -212,4 +212,48 @@ app.get("/auth/linkedin/callback", async (req, res) => {
   }
 });
 
+
+// ---------- MERCADO PAGO ----------
+const MP_TOKEN = process.env.MP_ACCESS_TOKEN;
+const MP_PUBLIC = process.env.MP_PUBLIC_KEY;
+
+// cria preferencia de pagamento e devolve a URL do checkout
+app.post("/api/criar-pagamento", async (req, res) => {
+  const { plano, email, valor } = req.body || {};
+  const itens = {
+    basico:      { titulo: "Plano Basico - Meu Agente IA",      valor: 29 },
+    profissional:{ titulo: "Plano Profissional - Meu Agente IA", valor: 59 },
+    empresarial: { titulo: "Plano Empresarial - Meu Agente IA", valor: 149 }
+  };
+  const item = itens[plano] || itens.basico;
+  try {
+    const pref = await fetch("https://api.mercadopago.com/checkout/preferences", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + MP_TOKEN, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: [{ title: item.titulo, quantity: 1, unit_price: Number(valor) || item.valor, currency_id: "BRL" }],
+        payer: { email: email || "" },
+        back_urls: {
+          success: SITE + "/painel.html",
+          failure: SITE + "/pagamento.html",
+          pending: SITE + "/painel.html"
+        },
+        auto_return: "approved",
+        notification_url: BASE + "/api/webhook-mp"
+      })
+    }).then(r => r.json());
+    if (!pref.init_point) return res.status(500).json({ ok:false, erro:"Falha ao criar pagamento", detalhe:pref });
+    res.json({ ok:true, init_point: pref.init_point, public_key: MP_PUBLIC });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ ok:false, erro:"Erro no pagamento" });
+  }
+});
+
+// webhook do Mercado Pago (confirmaacao do pagamento)
+app.post("/api/webhook-mp", (req, res) => {
+  console.log("Webhook MP:", JSON.stringify(req.body));
+  res.sendStatus(200);
+});
+
 app.listen(PORT, ()=> console.log("Servidor Meu Agente IA no ar, porta", PORT));
