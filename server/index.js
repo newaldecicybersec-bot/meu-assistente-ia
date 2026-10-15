@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = process.env.FROM_EMAIL || "Meu Agente IA <noreply@omeuassistenteia.com.br>";
+const FROM = process.env.FROM_EMAIL || "Meu Assistente IA <noreply@omeuassistenteia.com.br>";
 
 // guarda codigos temporariamente (em producao usar banco/redis)
 const codigos = new Map();
@@ -28,11 +28,11 @@ app.post("/api/enviar-codigo", async (req, res) => {
     await resend.emails.send({
       from: FROM,
       to: email,
-      subject: "Confirme seu e-mail — Meu Agente IA",
+      subject: "Confirme seu e-mail — Meu Assistente IA",
       html: `<div style="margin:0;padding:0;background:#0a0e16;font-family:Segoe UI,Arial,Helvetica,sans-serif">
 <div style="max-width:600px;margin:0 auto;background:#0e141f">
   <div style="background:linear-gradient(135deg,#141c2e,#0e141f);padding:30px 40px;text-align:center">
-    <img src="https://omeuassistenteia.com.br/logo_axia_email.png" alt="Meu Agente IA" width="72" height="72" style="border-radius:16px">
+    <img src="https://omeuassistenteia.com.br/logo_axia_email.png" alt="Meu Assistente IA" width="72" height="72" style="border-radius:16px">
     <div style="margin-top:16px;font-size:24px;font-weight:800;color:#eef3f9">Meu <span style="color:#f4c15a">Agente IA</span></div>
     <div style="color:#86b3c9;font-size:13px;letter-spacing:1px;margin-top:4px">ATENDIMENTO INTELIGENTE &middot; 24 HORAS</div>
   </div>
@@ -55,11 +55,11 @@ app.post("/api/enviar-codigo", async (req, res) => {
   </div>
   <div style="background:#0a0e16;padding:28px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06)">
     <div style="color:#6b7783;font-size:12px;line-height:2">
-      Meu Agente IA &middot; Atendimento inteligente em todos os canais<br>
+      Meu Assistente IA &middot; Atendimento inteligente em todos os canais<br>
       <a href="https://omeuassistenteia.com.br" style="color:#86b3c9;text-decoration:none">omeuassistenteia.com.br</a> &middot; 
       <a href="https://omeuassistenteia.com.br/politica-de-privacidade.html" style="color:#86b3c9;text-decoration:none">Privacidade</a> &middot; 
       <a href="https://omeuassistenteia.com.br/fale-conosco.html" style="color:#86b3c9;text-decoration:none">Contato</a><br><br>
-      Voce recebeu este e-mail porque se cadastrou no Meu Agente IA.
+      Voce recebeu este e-mail porque se cadastrou no Meu Assistente IA.
     </div>
   </div>
 </div>
@@ -84,7 +84,7 @@ app.post("/api/confirmar-codigo", (req, res) => {
   res.json({ ok:true });
 });
 
-app.get("/", (_req,res)=> res.json({ servico:"Meu Agente IA", status:"ok" }));
+app.get("/", (_req,res)=> res.json({ servico:"Meu Assistente IA", status:"ok" }));
 
 const PORT = process.env.PORT || 3000;
 
@@ -250,9 +250,9 @@ const MP_PUBLIC = process.env.MP_PUBLIC_KEY;
 app.post("/api/criar-pagamento", async (req, res) => {
   const { plano, email, valor } = req.body || {};
   const itens = {
-    basico:      { titulo: "Plano Basico - Meu Agente IA",      valor: 29 },
-    profissional:{ titulo: "Plano Profissional - Meu Agente IA", valor: 59 },
-    empresarial: { titulo: "Plano Empresarial - Meu Agente IA", valor: 149 }
+    basico:      { titulo: "Plano Basico - Meu Assistente IA",      valor: 29 },
+    profissional:{ titulo: "Plano Profissional - Meu Assistente IA", valor: 59 },
+    empresarial: { titulo: "Plano Empresarial - Meu Assistente IA", valor: 149 }
   };
   const item = itens[plano] || itens.basico;
   try {
@@ -285,4 +285,4 @@ app.post("/api/webhook-mp", (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(PORT, ()=> console.log("Servidor Meu Agente IA no ar, porta", PORT));
+app.listen(PORT, ()=> console.log("Servidor Meu Assistente IA no ar, porta", PORT));
