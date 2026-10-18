@@ -158,6 +158,7 @@ document.getElementById('formCadastro').addEventListener('submit', function(e) {
     data: new Date().toISOString()
   };
   localStorage.setItem('cliente', JSON.stringify(dados));
+  if (window.registrarCadastro) window.registrarCadastro(dados.email);
   fetch('https://sistema-assistente-ia.onrender.com/api/registro',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:dados.nome,email:dados.email,senha:dados.cpf||dados.email,tipo:dados.tipo,documento:dados.cpf||dados.cnpj,telefone:dados.telefone,plano:dados.plano})}).catch(function(){});
   window.location.href = 'verificacao.html';
 });
