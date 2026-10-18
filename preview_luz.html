@@ -103,5 +103,15 @@ function draw(){
 }
 draw();
 </script>
+<script>
+(function(){
+  var E='https://painel.omeuassistenteia.com.br/api/track';
+  function s(d){try{fetch(E,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){});}catch(e){}}
+  s({tipo:'pagina',pagina:location.pathname});
+  document.addEventListener('click',function(ev){var a=ev.target.closest('a,button,[role="button"],.btn');if(a)s({tipo:'clique',pagina:location.pathname,elemento:(a.innerText||a.id||a.className||'x').toString().slice(0,60)});},true);
+  window.registrarCadastro=function(email){s({tipo:'cadastro',pagina:location.pathname,email:email||''});};
+  window.registrarPagamento=function(email,plano){s({tipo:'pagamento',pagina:location.pathname,email:email||'',elemento:plano||''});};
+})();
+</script>
 </body>
 </html>

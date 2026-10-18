@@ -78,5 +78,15 @@ document.addEventListener('contextmenu', e => { if(e.target.tagName==='IMG') e.p
 document.addEventListener('dragstart', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
 document.addEventListener('copy', e => { if(window.getSelection && !window.getSelection().toString()) e.preventDefault(); });
 </script>
-<style>img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}</style></body>
+<style>img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}</style><script>
+(function(){
+  var E='https://painel.omeuassistenteia.com.br/api/track';
+  function s(d){try{fetch(E,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){});}catch(e){}}
+  s({tipo:'pagina',pagina:location.pathname});
+  document.addEventListener('click',function(ev){var a=ev.target.closest('a,button,[role="button"],.btn');if(a)s({tipo:'clique',pagina:location.pathname,elemento:(a.innerText||a.id||a.className||'x').toString().slice(0,60)});},true);
+  window.registrarCadastro=function(email){s({tipo:'cadastro',pagina:location.pathname,email:email||''});};
+  window.registrarPagamento=function(email,plano){s({tipo:'pagamento',pagina:location.pathname,email:email||'',elemento:plano||''});};
+})();
+</script>
+</body>
 </html>

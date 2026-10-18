@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel - Meu Assistente IA</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:#0b1220; color:#e8eef7; min-height:100vh; padding:24px; }
+  h1 { font-size:22px; margin-bottom:4px; }
+  .sub { color:#8fa3bd; font-size:13px; margin-bottom:20px; }
+  .login { max-width:340px; margin:80px auto; background:#111c2e; padding:28px; border-radius:14px; border:1px solid #1e3050; }
+  .login input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #243a5c; background:#0b1220; color:#fff; font-size:15px; }
+  .login button { width:100%; padding:12px; background:#d4af37; border:none; border-radius:8px; color:#111; font-weight:700; cursor:pointer; font-size:15px; }
+  .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px; }
+  .card { background:#111c2e; border:1px solid #1e3050; border-radius:12px; padding:18px; }
+  .card .num { font-size:32px; font-weight:800; color:#d4af37; }
+  .card .rot { color:#8fa3bd; font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+  table { width:100%; border-collapse:collapse; background:#111c2e; border-radius:12px; overflow:hidden; }
+  th,td { padding:11px 12px; text-align:left; font-size:13px; border-bottom:1px solid #1a2942; }
+  th { background:#16233a; color:#8fa3bd; font-weight:600; }
+  .tipo { padding:3px 9px; border-radius:20px; font-size:11px; font-weight:700; }
+  .cadastro { background:#1d4ed8; } .clique { background:#0891b2; } .pagina { background:#475569; } .pagamento { background:#16a34a; }
+  .barra { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .atualiza { color:#8fa3bd; font-size:12px; }
+  #dados { display:none; }
+  button.reload { background:#243a5c; border:none; color:#fff; padding:8px 14px; border-radius:8px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div id="login" class="login">
+  <h1>Painel do Administrador</h1>
+  <p class="sub">Meu Assistente IA</p>
+  <input type="password" id="senha" placeholder="Senha do painel">
+  <button onclick="entrar()">Entrar</button>
+</div>
+
+<div id="dados">
+  <div class="barra">
+    <div>
+      <h1>Monitoramento</h1>
+      <div class="sub">Cadastros, cliques e acessos em tempo real</div>
+    </div>
+    <button class="reload" onclick="carregar()">Atualizar</button>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="num" id="cCad">0</div><div class="rot">Cadastros</div></div>
+    <div class="card"><div class="num" id="cCliques">0</div><div class="rot">Cliques</div></div>
+    <div class="card"><div class="num" id="cPaginas">0</div><div class="rot">Visitas</div></div>
+    <div class="card"><div class="num" id="cTotal">0</div><div class="rot">Eventos</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Tipo</th><th>Pagina</th><th>Elemento / Email</th><th>IP</th><th>Quando</th></tr></thead>
+    <tbody id="tabela"></tbody>
+  </table>
+</div>
+
+<script>
+var senha = '';
+function entrar() {
+  senha = document.getElementById('senha').value;
+  carregar();
+}
+function carregar() {
+  fetch('/api/eventos?senha=' + encodeURIComponent(senha))
+    .then(r => r.json())
+    .then(d => {
+      if (d.erro) { alert(d.erro); return; }
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('dados').style.display = 'block';
+      document.getElementById('cCad').textContent = d.cadastros;
+      document.getElementById('cCliques').textContent = d.cliques;
+      document.getElementById('cPaginas').textContent = d.paginas;
+      document.getElementById('cTotal').textContent = d.total;
+      var linhas = (d.eventos||[]).map(e => {
+        var quando = new Date(e.data).toLocaleString('pt-BR');
+        var info = e.email || e.elemento || '';
+        return '<tr><td><span class="tipo '+e.tipo+'">'+e.tipo+'</span></td><td>'+e.pagina+'</td><td>'+info+'</td><td>'+(e.ip||'')+'</td><td>'+quando+'</td></tr>';
+      }).join('');
+      document.getElementById('tabela').innerHTML = linhas || '<tr><td colspan="5">Sem eventos ainda</td></tr>';
+    })
+    .catch(() => alert('Erro ao conectar'));
+}
+document.getElementById('senha').addEventListener('keyup', function(e){ if(e.key==='Enter') entrar(); });
+setInterval(function(){ if(document.getElementById('dados').style.display==='block') carregar(); }, 15000);
+</script>
+</body>
+</html>
