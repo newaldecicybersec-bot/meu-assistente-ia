@@ -1,0 +1,22 @@
+[
+  {
+    "tipo": "cadastro",
+    "pagina": "/cadastro-pro.html",
+    "elemento": "",
+    "email": "cliente@teste.com",
+    "origem": "",
+    "ip": "::1",
+    "user_agent": "curl/8.18.0",
+    "data": "2026-10-17T23:25:39.200Z"
+  },
+  {
+    "tipo": "clique",
+    "pagina": "/index.html",
+    "elemento": "Botao Comecar",
+    "email": "",
+    "origem": "",
+    "ip": "::1",
+    "user_agent": "curl/8.18.0",
+    "data": "2026-10-17T23:25:39.284Z"
+  }
+]
