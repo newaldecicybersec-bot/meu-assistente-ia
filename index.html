@@ -86,7 +86,7 @@ h2{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.08;font-weight:700;letter-sp
 .step p{color:var(--muted);font-weight:300}
 
 /* PRICING */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:40px}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px;display:flex;flex-direction:column;transition:.3s}
 .plan:hover{transform:translateY(-6px)}
 .plan.feature{border-color:rgba(47,224,196,.5);background:linear-gradient(170deg,rgba(47,224,196,.10),rgba(255,255,255,.02));box-shadow:var(--shadow)}
@@ -291,7 +291,7 @@ footer a:hover{color:var(--teal)}
     <div class="plans">
       <div class="reveal plan">
         <div class="pname">Básico</div>
-        <div class="price">R$ 29<small>/mês</small></div>
+        <div class="price">R$ 49<small>/mês</small></div>
         <p style="color:var(--muted)">Para quem está começando.</p>
         <ul>
           <li><span class="check">✓</span> Até 500 mensagens/mês</li>
@@ -303,7 +303,7 @@ footer a:hover{color:var(--teal)}
       </div>
       <div class="plan feature">
         <div class="pname">Profissional <span class="badge">Popular</span></div>
-        <div class="price">R$ 59<small>/mês</small></div>
+        <div class="price">R$ 99<small>/mês</small></div>
         <p style="color:var(--muted)">Para quem já tem movimento.</p>
         <ul>
           <li><span class="check">✓</span> Até 2.000 mensagens/mês</li>
@@ -322,6 +322,18 @@ footer a:hover{color:var(--teal)}
           <li><span class="check">✓</span> Texto, áudio e vídeo</li>
           <li><span class="check">✓</span> Personalização completa</li>
           <li><span class="check">✓</span> Suporte dedicado</li>
+        </ul>
+        <a href="criar-conta.html" class="btn btn-ghost">Começar</a>
+      </div>
+      <div class="reveal plan">
+        <div class="pname">Assistente Completo</div>
+        <div class="price">R$ 249<small>/mês</small></div>
+        <p style="color:var(--muted)">Tudo + gestão do negócio.</p>
+        <ul>
+          <li><span class="check">✓</span> Mensagens ilimitadas*</li>
+          <li><span class="check">✓</span> E-mail e agenda</li>
+          <li><span class="check">✓</span> Estoque e leads</li>
+          <li><span class="check">✓</span> Marketing e relatórios</li>
         </ul>
         <a href="criar-conta.html" class="btn btn-ghost">Começar</a>
       </div>
