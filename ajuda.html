@@ -3,192 +3,247 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Com o que podemos ajudar? - Meu Assistente IA</title>
+<title>Meu Assistente IA — Atendente inteligente em todos os canais</title>
+<meta name="description" content="Assistente de IA que atende seus clientes no WhatsApp, 24 horas, com linguagem humana. Simples, poderoso e acessível.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #05070d; color: #eaf2ff; line-height: 1.7; }
-        header { padding: 18px 0; background: rgba(7,12,20,0.92); border-bottom: 1px solid rgba(30,220,190,0.16); backdrop-filter: blur(10px); }
-        nav { max-width: 1040px; margin: 0 auto; padding: 0 22px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 22px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .logo .raio { color: #f4c15a; font-size: 25px; filter: drop-shadow(0 0 9px rgba(244,193,90,.55)); }
-        .logo b { background: linear-gradient(90deg,#fff,#cfe9ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn { padding: 11px 24px; border-radius: 24px; text-decoration: none; font-weight: bold; background: linear-gradient(120deg,#16e0b4,#0fb0c9); color: #04121a; box-shadow: 0 8px 26px rgba(18,224,182,.34); }
-        main { max-width: 1040px; margin: 0 auto; padding: 60px 22px; }
-        h1 { font-size: 38px; background: linear-gradient(90deg,#2fe0c0,#4fd6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; }
-        h2 { color: #2fe0c0; font-size: 24px; margin: 35px 0 15px; }
-        p { color: #bcd4e2; margin-bottom: 15px; font-size: 17px; }
-        ul { margin: 15px 0 25px 30px; }
-        li { color: #bcd4e2; margin-bottom: 10px; font-size: 17px; }
-        strong { color: #eaf2ff; }
-        .card { background: rgba(18,224,182,0.07); border: 1px solid rgba(30,220,190,0.20); border-radius: 16px; padding: 30px; margin: 25px 0; }
-        a { color: #2fe0c0; }
-        footer { padding: 35px 0; text-align: center; border-top: 1px solid rgba(30,220,190,0.16); background: rgba(4,7,12,0.9); margin-top: 60px; }
-        footer p { color: #7d97a8; font-size: 14px; margin: 6px 0; }
-    </style>
-<script data-goatcounter="https://meuassistenteia.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head>
-<body>
-<header><nav><a class="logo" href="index.html"><span class="raio">⚡</span><b>Meu Assistente IA</b></a><a class="btn" href="index.html#pricing">Planos</a></nav></header>
-<main>
-<h1>Com o que podemos ajudar?</h1>
-<div class="busca">
-  <input type="text" id="campoBusca" placeholder="Digite sua duvida" oninput="filtrar()">
-  <span class="icone">&#128269;</span>
-</div>
-
-<div class="categorias" id="listaCategorias">
-
-  <div class="categoria" data-busca="assistente ia robo humano personalidade perfil como funciona atendimento">
-    <div class="topo" onclick="abrirCategoria(this)">
-      <div class="icone-cat">&#129302;</div>
-      <div>
-        <div class="titulo">O que e o Meu Assistente IA</div>
-        <div class="desc">Como funciona, o jeito humano e o que o assistente faz.</div>
-      </div>
-      <div class="seta">&#8250;</div>
-    </div>
-    <div class="conteudo">
-      <div class="faq">
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">O assistente parece uma pessoa de verdade?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Sim. Nosso assistente e criado com um perfil humano: tem nome, jeito proprio, tom de voz e cuidado com o cliente. A maioria das pessoas nem percebe que esta falando com uma inteligencia artificial.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Cada cliente pode ter um assistente com a cara da empresa?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Sim. Nosso assistente e criado com um perfil humano: tem nome, jeito proprio, tom de voz e cuidado com o cliente. A maioria das pessoas nem percebe que esta falando com uma inteligencia artificial.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Ele so manda um recado pronto, como o WhatsApp faz?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Nao. Enquanto o WhatsApp apenas envia um texto fixo, o Meu Assistente IA conversa de verdade: entende a duvida, responde, orienta o cliente e, quando precisa, chama voce.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="categoria" data-busca="vantagem diferenca concorrente whatsapp joana comparacao melhor">
-    <div class="topo" onclick="abrirCategoria(this)">
-      <div class="icone-cat">&#127942;</div>
-      <div>
-        <div class="titulo">Por que somos diferentes</div>
-        <div class="desc">A diferenca entre o nosso assistente e as outras solucoes.</div>
-      </div>
-      <div class="seta">&#8250;</div>
-    </div>
-    <div class="conteudo">
-      <div class="faq">
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Qual a diferenca para o atendimento automatico do WhatsApp?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">O WhatsApp deixa um recado pronto e para por ali. O Meu Assistente IA atende, conversa e vende como uma pessoa de verdade, 24 horas por dia.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">E a diferenca para outros assistentes de IA do mercado?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">A maioria entrega um robo frio e generico. Nos entregamos um colaborador com nome, personalidade e um jeito humano, alem de um preco mais acessivel, a partir de R$ 29 por mes.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Meu cliente vai perceber que e uma maquina?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Na maioria das vezes, nao. A conversa e natural, com linguagem humana. E quando o cliente precisa de uma pessoa, o assistente passa o contato na hora.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="categoria" data-busca="planos preco valor custo pagamento mensagem quantos">
-    <div class="topo" onclick="abrirCategoria(this)">
-      <div class="icone-cat">&#128176;</div>
-      <div>
-        <div class="titulo">Planos e precos</div>
-        <div class="desc">Quanto custa e o que esta incluso em cada plano.</div>
-      </div>
-      <div class="seta">&#8250;</div>
-    </div>
-    <div class="conteudo">
-      <div class="faq">
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Quais sao os planos?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Basico por R$ 29/mes (500 mensagens), Profissional por R$ 59/mes (2.000 mensagens) e Empresarial por R$ 149/mes (5.000 mensagens).</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Tem fidelidade ou posso cancelar quando quiser?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Nao tem fidelidade. Voce pode cancelar a qualquer momento, sem multa. Ainda oferecemos 7 dias de garantia.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Posso acompanhar meu consumo de mensagens?</span><span class="p-seta">&#9662;</span></div><div class="resposta">Sim. Voce tem um Painel de Consumo onde ve quantas mensagens usou, quantas restam e o historico, em tempo real. Acesso pelo link Meu painel de consumo no rodape.</div><div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Quais formas de pagamento?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Aceitamos PIX, cartao de credito e boleto, com processamento seguro pelo Mercado Pago.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="categoria" data-busca="cadastro conta comecar configurar tempo instalar setup">
-    <div class="topo" onclick="abrirCategoria(this)">
-      <div class="icone-cat">&#128241;</div>
-      <div>
-        <div class="titulo">Como comecar</div>
-        <div class="desc">Cadastro, configuracao e primeiro uso.</div>
-      </div>
-      <div class="seta">&#8250;</div>
-    </div>
-    <div class="conteudo">
-      <div class="faq">
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Quanto tempo leva para ficar pronto?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">O basico funciona em 5 minutos: voce cria a conta, descreve o que o assistente deve fazer e conecta o WhatsApp. O refinamento vem depois, sem pressa.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Preciso saber programar?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Nao. Voce fala em portugues comum e o assistente entende. Sem codigo, sem complicacao.</div>
-
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Posso ter mais de um usuario na equipe?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Sim. Varios funcionarios podem usar o mesmo assistente, cada um com seu acesso. Ideal para equipes.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="categoria" data-busca="seguranca dados lgpd privacidade seguro">
-    <div class="topo" onclick="abrirCategoria(this)">
-      <div class="icone-cat">&#128274;</div>
-      <div>
-        <div class="titulo">Seguranca e privacidade</div>
-        <div class="desc">Protecao de dados e conformidade com a lei.</div>
-      </div>
-      <div class="seta">&#8250;</div>
-    </div>
-    <div class="conteudo">
-      <div class="faq">
-        <div class="pergunta" onclick="abrirPergunta(this)"><span class="p-txt">Meus dados e os dos meus clientes ficam seguros?</span><span class="p-seta">&#9662;</span></div>
-        <div class="resposta">Sim. Seguimos a LGPD e usamos criptografia. Nao vendemos dados e o pagamento e processado por plataforma certificada.</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</main>
-<footer>
-  <p>Meu Assistente IA 2026 - Todos os direitos reservados.</p>
-  <p>Pagamentos processados de forma segura pelo Mercado Pago.</p>
-</footer>
-<script>
-function abrirCategoria(el){
-  const cat = el.parentElement;
-  cat.classList.toggle('aberta');
+:root{
+  --bg:#070b12; --bg2:#0b1220; --ink:#eaf1fb; --muted:#9fb2c9;
+  --teal:#2fe0c4; --teal2:#12b8a6; --gold:#ffc428; --line:rgba(255,255,255,.08);
+  --card:rgba(255,255,255,.035); --shadow:0 30px 80px rgba(0,0,0,.45);
 }
-function abrirPergunta(el){
-  el.classList.toggle('aberta');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,92vw);margin:0 auto}
+
+/* NAV */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.35s;padding:18px 0}
+header.scrolled{background:rgba(7,11,18,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.22rem;letter-spacing:.2px}
+.brand .bolt{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(140deg,rgba(47,224,196,.18),rgba(47,224,196,.04));border:1px solid rgba(47,224,196,.35)}
+.brand b{color:#fff}.brand span{background:linear-gradient(120deg,var(--teal),#63e9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{color:var(--muted);font-size:.97rem;font-weight:500;transition:.25s}
+.nav-links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:12px;cursor:pointer;transition:.28s;border:1px solid transparent;white-space:nowrap}
+.btn-gold{background:linear-gradient(120deg,var(--gold),#ff9d2e);color:#231500;padding:10px 20px;font-size:.92rem;box-shadow:0 12px 30px rgba(255,180,40,.30)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(255,180,40,.40)}
+.btn-teal{background:linear-gradient(120deg,var(--teal),var(--teal2));color:#03211c;padding:12px 24px;font-size:.98rem;box-shadow:0 14px 34px rgba(47,224,196,.28)}
+.btn-teal:hover{transform:translateY(-2px)}
+.btn-ghost{border-color:rgba(255,255,255,.16);color:#eaf1fb;padding:12px 24px}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+.btn-lg{padding:14px 28px;font-size:1.02rem}
+.menu-btn{display:none;background:none;border:0;color:#fff;font-size:1.6rem}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero video,.hero .heroimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero .veil{position:absolute;inset:0;z-index:1;background:
+  linear-gradient(90deg,rgba(7,11,18,.92) 0%,rgba(7,11,18,.62) 45%,rgba(7,11,18,.30) 100%),
+  radial-gradient(120% 90% at 80% 40%,rgba(47,224,196,.10),transparent 60%)}
+.hero .inner{position:relative;z-index:3;width:min(1180px,92vw);margin:0 auto;padding:120px 0 70px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.83rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;background:rgba(47,224,196,.10);border:1px solid rgba(47,224,196,.22);padding:8px 15px;border-radius:100px}
+.hero h1{font-size:clamp(2.6rem,6vw,5.1rem);line-height:1.02;font-weight:800;letter-spacing:-1.5px;margin:22px 0 20px}
+.hero h1 .grad{background:linear-gradient(120deg,var(--teal),#63e9ff 60%,#a2f0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(1.12rem,1.8vw,1.5rem);color:#c4d3e6;max-width:600px;font-weight:300}
+.hero .cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+.trust{margin-top:34px;display:flex;gap:26px;flex-wrap:wrap;color:var(--muted);font-size:.95rem}
+.trust .t{display:flex;align-items:center;gap:9px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}
+
+/* SECTION */
+section{position:relative}
+.sec{padding:104px 0}
+.sec-head{max-width:720px}
+.tag{color:var(--teal);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.82rem}
+h2{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.08;font-weight:700;letter-spacing:-1px;margin:14px 0 18px}
+.sec p.sub{color:var(--muted);font-size:1.16rem;font-weight:300}
+
+/* GRID */
+.grid{display:grid;gap:22px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;transition:.3s}
+.card:hover{transform:translateY(-6px);border-color:rgba(47,224,196,.32);background:rgba(47,224,196,.05)}
+.card .ic i{font-size:22px;color:#2fe0c4}
+.card .ic{width:52px;height:52px;border-radius:13px;display:grid;place-items:center;background:rgba(47,224,196,.12);border:1px solid rgba(47,224,196,.24);margin-bottom:18px}
+.card h3{font-size:1.28rem;font-weight:600;margin-bottom:9px}
+.card p{color:var(--muted);font-size:1.02rem;font-weight:300}
+
+/* STEPS */
+.steps{counter-reset:s}
+.step{display:flex;gap:22px;padding:26px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step .n{flex:0 0 52px;height:52px;border-radius:14px;display:grid;place-items:center;font-weight:700;font-size:1.3rem;background:rgba(255,196,40,.12);border:1px solid rgba(255,196,40,.28);color:var(--gold)}
+.step h3{font-size:1.34rem;font-weight:600;margin-bottom:6px}
+.step p{color:var(--muted);font-weight:300}
+
+/* PRICING */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:40px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px;display:flex;flex-direction:column;transition:.3s}
+.plan:hover{transform:translateY(-6px)}
+.plan.feature{border-color:rgba(47,224,196,.5);background:linear-gradient(170deg,rgba(47,224,196,.10),rgba(255,255,255,.02));box-shadow:var(--shadow)}
+.plan .pname{font-weight:600;font-size:1.16rem;display:flex;align-items:center;gap:8px}
+.badge{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;background:var(--teal);color:#03211c;padding:4px 11px;border-radius:100px;font-weight:700}
+.price{font-size:3rem;font-weight:800;letter-spacing:-2px;margin:16px 0 4px}
+.price small{font-size:1rem;font-weight:400;color:var(--muted);letter-spacing:0}
+.plan ul{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:12px}
+.plan li{display:flex;gap:11px;align-items:flex-start;color:#cdd9e8;font-weight:300}
+.check{color:var(--teal);font-weight:700}
+.plan .btn{margin-top:auto;width:100%}
+
+/* FAQ */
+.faq{max-width:840px;margin:40px auto 0}
+.q{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;background:var(--card)}
+.q summary{cursor:pointer;padding:22px 24px;font-weight:500;font-size:1.12rem;display:flex;justify-content:space-between;align-items:center;list-style:none}
+.q summary::-webkit-details-marker{display:none}
+.q summary::after{content:"+";color:var(--teal);font-size:1.5rem;font-weight:300}
+.q[open] summary::after{content:"–"}
+.q .a{padding:0 24px 22px;color:var(--muted);font-weight:300}
+
+/* CTA */
+.cta-band{position:relative;border-radius:26px;overflow:hidden;padding:70px;text-align:center;background:linear-gradient(130deg,rgba(47,224,196,.14),rgba(18,184,166,.06));border:1px solid rgba(47,224,196,.22)}
+.cta-band h2{margin-bottom:14px}
+.cta-band p{color:#c4d3e6;font-size:1.18rem;font-weight:300;max-width:560px;margin:0 auto 30px}
+
+
+/* REVEAL (animacao de entrada) */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}.reveal.d5{transition-delay:.40s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* hero entra ja suave */
+.hero .inner>*{animation:heroUp .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .inner>*:nth-child(2){animation-delay:.10s}
+.hero .inner>*:nth-child(3){animation-delay:.20s}
+.hero .inner>*:nth-child(4){animation-delay:.30s}
+.hero .inner>*:nth-child(5){animation-delay:.40s}
+@keyframes heroUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+/* brilho seguindo o mouse nos cards */
+.card{position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(320px 220px at var(--mx,50%) var(--my,50%),rgba(47,224,196,.10),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}
+.card:hover::after{opacity:1}
+.plan{position:relative;overflow:hidden}
+.plan .pname{letter-spacing:.2px}
+.btn{will-change:transform}
+.btn-gold:hover,.btn-teal:hover{filter:brightness(1.06)}
+h2 .grad{background:linear-gradient(120deg,var(--teal),#63e9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+
+/* CANAIS */
+.channels{padding:54px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(47,224,196,.03)}
+.chan-lead{text-align:center;color:#c4d3e6;font-size:1.28rem;font-weight:300}
+.chan-lead b{color:var(--teal);font-weight:600}
+.chan-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:100px;background:var(--card);border:1px solid var(--line);color:#d6e2f0;font-weight:500;font-size:1rem;transition:.25s}
+.chip:hover{border-color:rgba(47,224,196,.4);transform:translateY(-3px);background:rgba(47,224,196,.08)}
+.chip i{font-style:normal;font-size:1.15rem}
+
+.chip .fa-brands{font-size:1.22rem}
+.fa-whatsapp{color:#25D366}.fa-instagram{color:#E1306C}.fa-facebook{color:#1877F2}
+.fa-telegram{color:#229ED9}.fa-tiktok{color:#eef2f7}.fa-x-twitter{color:#eef2f7}
+.fa-linkedin{color:#0A66C2}.fa-youtube{color:#FF0000}.fa-comment-dots{color:#2fe0c4}.fa-envelope{color:#2fe0c4}
+
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:60px 0 40px;margin-top:60px;color:var(--muted)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+footer h4{color:#eaf1fb;font-size:1rem;margin-bottom:14px;font-weight:600}
+footer a{display:block;padding:6px 0;font-size:.95rem;transition:.2s}
+footer a:hover{color:var(--teal)}
+.copy{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.9rem}
+
+@media(max-width:960px){
+  .g3,.g4,.plans,.foot-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .menu-btn{display:block}
 }
-function filtrar(){
-  const termo = document.getElementById('campoBusca').value.toLowerCase().trim();
-  const cats = document.querySelectorAll('.categoria');
-  cats.forEach(cat => {
-    const texto = (cat.getAttribute('data-busca') + ' ' + cat.textContent).toLowerCase();
-    if (termo === '' || texto.includes(termo)) {
-      cat.classList.remove('oculto');
-      if (termo !== '') cat.classList.add('aberta');
-    } else {
-      cat.classList.add('oculto');
-    }
-  });
+@media(max-width:640px){
+  .g3,.g4,.g2,.plans,.foot-grid{grid-template-columns:1fr}
+  .hero .inner{padding:120px 0 50px}
+  .sec{padding:72px 0}
+  .cta-band{padding:44px 24px}
+  .foot-grid{gap:24px}
 }
-</script>
-<script>
-document.addEventListener('contextmenu', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
-document.addEventListener('dragstart', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
-document.addEventListener('copy', e => { if(window.getSelection && !window.getSelection().toString()) e.preventDefault(); });
-</script>
-<style>img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}</style><script>
-(function(){
-  var E='https://painel.omeuassistenteia.com.br/api/track';
-  function s(d){try{fetch(E,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),keepalive:true}).catch(function(){});}catch(e){}}
-  s({tipo:'pagina',pagina:location.pathname});
-  document.addEventListener('click',function(ev){var a=ev.target.closest('a,button,[role="button"],.btn');if(a)s({tipo:'clique',pagina:location.pathname,elemento:(a.innerText||a.id||a.className||'x').toString().slice(0,60)});},true);
-  window.registrarCadastro=function(email){s({tipo:'cadastro',pagina:location.pathname,email:email||''});};
-  window.registrarPagamento=function(email,plano){s({tipo:'pagamento',pagina:location.pathname,email:email||'',elemento:plano||''});};
-})();
-</script>
-<script src="https://painel.omeuassistenteia.com.br/chat.js"></script>
-</body>
-</html>
+
+/* COOKIE BANNER (LGPD) */
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;background:rgba(17,22,32,.97);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.cookie-banner p{color:#c3ccd6;font-size:14px;line-height:1.6;flex:1;min-width:240px;margin:0}
+.cookie-banner p a{color:#86b3c9;text-decoration:underline}
+.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-actions button{padding:10px 20px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:.2s}
+.cookie-accept{background:linear-gradient(120deg,#f4c15a,#e8a93a);color:#241700;border:none}
+.cookie-manage{background:transparent;color:#c3ccd6;border:1px solid rgba(255,255,255,.18)}
+.cookie-manage:hover{border-color:rgba(255,255,255,.35)}
+@media(max-width:600px){.cookie-banner{flex-direction:column;align-items:stretch}.cookie-actions{justify-content:stretch}.cookie-actions button{flex:1}}
+</style>
+
+<style>
+.step{display:flex;gap:20px;align-items:flex-start;max-width:780px;margin:0 auto 22px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.step .n{flex:0 0 44px;height:44px;border-radius:12px;background:var(--teal);color:#04202a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+.step h3{font-size:18px;margin-bottom:6px}.step p{color:var(--muted);line-height:1.6}
+.foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr 1fr}.step{flex-direction:column}}
+</style>
+</head><body>
+<nav class="nav"><div class="wrap nav-in">
+  <a class="brand" href="index.html"><img src="logo_axia.png" alt="Meu Assistente IA"><span>Meu <b>Assistente</b> IA</span></a>
+  <div class="nav-links">
+    <a href="index.html#recursos">Recursos</a>
+    <a href="index.html#planos">Planos</a>
+    <a href="ajuda.html">Ajuda</a>
+    <a href="login.html" class="btn btn-ghost">Entrar</a>
+    <a href="cadastro-pro.html" class="btn btn-teal">Criar conta</a>
+  </div>
+</div></nav>
+
+<section class="hero" style="min-height:auto;padding:120px 20px 50px">
+  <div class="wrap">
+    <div class="tag">Ajuda</div>
+    <h1>Como configurar seu <b>Meu Assistente IA</b></h1>
+    <p class="sub">Um passo a passo simples, sem precisar saber programar. Siga as etapas abaixo.</p>
+  </div>
+</section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><div class="tag">Passo a passo</div><h2>Configure em poucos minutos</h2></div>
+
+  <div class="reveal step"><div class="n">1</div><div><h3>Crie sua conta</h3><p>Acesse o site e clique em <b>Criar conta</b>. Preencha seu nome, e-mail e telefone. Voce tem <b>7 dias gratis</b> para testar antes de qualquer pagamento.</p></div></div>
+  <div class="reveal step"><div class="n">2</div><div><h3>Escolha seu plano</h3><p>Veja a pagina de <a href="index.html#planos" style="color:var(--teal)">Planos</a> e escolha o que melhor serve voce. Voce pode trocar de plano a qualquer momento, sem perder nada.</p></div></div>
+  <div class="reveal step"><div class="n">3</div><div><h3>Conecte seu WhatsApp</h3><p>No seu painel, voce conecta o WhatsApp do seu negocio. E so seguir as instrucoes na tela — nosso assistente te guia em cada passo.</p></div></div>
+  <div class="reveal step"><div class="n">4</div><div><h3>Personalize o atendimento</h3><p>Escolha o <b>tom de voz</b>, o nome do assistente e as respostas mais comuns do seu negocio. Assim o atendimento fica com a sua cara.</p></div></div>
+  <div class="reveal step"><div class="n">5</div><div><h3>Pronto, esta no ar!</h3><p>Seu assistente comeca a atender seus clientes <b>24 horas</b>, no WhatsApp e redes sociais. Voce acompanha tudo pelo painel.</p></div></div>
+</div></section>
+
+<section class="sec" style="background:linear-gradient(180deg,transparent,rgba(47,224,196,.04),transparent)"><div class="wrap">
+  <div class="sec-head" style="margin:0 auto;text-align:center"><div class="tag">Dúvidas</div><h2>Precisa de ajuda?</h2></div>
+  <div class="reveal plan feature" style="max-width:620px;margin:0 auto">
+    <div class="pname">Fale com nosso suporte</div>
+    <p style="color:var(--muted)">Nao conseguiu configurar? Nosso time te ajuda de perto, sem complicacao.</p>
+    <ul>
+      <li><span class="check">✓</span> Suporte por WhatsApp</li>
+      <li><span class="check">✓</span> Atendimento humanizado</li>
+      <li><span class="check">✓</span> A gente configura com voce</li>
+    </ul>
+    <a href="https://wa.me/5547988715824" class="btn btn-teal">Chamar no WhatsApp</a>
+  </div>
+  <p style="text-align:center;color:var(--muted);margin-top:22px">Tambem respondemos por e-mail: <a href="mailto:meuassistente@zohomail.com" style="color:var(--teal)">meuassistente@zohomail.com</a></p>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div><a class="brand" href="index.html"><img src="logo_axia.png" alt="Meu Assistente IA"><span>Meu <b>Assistente</b> IA</span></a><p class="sub" style="margin-top:12px">Atendimento inteligente em todos os canais.</p></div>
+    <div><h4>Produto</h4><a href="index.html#recursos">Recursos</a><a href="index.html#planos">Planos</a><a href="ajuda.html">Ajuda</a></div>
+    <div><h4>Suporte</h4><a href="ajuda.html">Como configurar</a><a href="https://wa.me/5547988715824">WhatsApp</a><a href="mailto:meuassistente@zohomail.com">E-mail</a></div>
+    <div><h4>Contato</h4><a href="https://wa.me/5547988715824">(47) 98871-5824</a><a href="mailto:meuassistente@zohomail.com">meuassistente@zohomail.com</a></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Meu Assistente IA. Todos os direitos reservados.</span></div>
+</div></footer>
+</body></html>
