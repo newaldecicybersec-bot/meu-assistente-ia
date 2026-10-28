@@ -285,4 +285,27 @@ app.post("/api/webhook-mp", (req, res) => {
   res.sendStatus(200);
 });
 
+
+// ===== Webhook do WhatsApp (Meta Cloud API) =====
+const META_VERIFY_TOKEN = 'meuassistente_ia_2026';
+
+// Verificacao do webhook (Meta envia GET na configuracao)
+app.get('/webhook/whatsapp', (req, res) => {
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
+  if (mode === 'subscribe' && token === META_VERIFY_TOKEN) {
+    console.log('Webhook WhatsApp VERIFICADO');
+    return res.status(200).send(challenge);
+  }
+  res.sendStatus(403);
+});
+
+// Recebimento de mensagens (Meta envia POST)
+app.post('/webhook/whatsapp', (req, res) => {
+  console.log('Webhook WhatsApp:', JSON.stringify(req.body));
+  // TODO: encaminhar para o n8n / IA e responder
+  res.sendStatus(200);
+});
+
 app.listen(PORT, ()=> console.log("Servidor Meu Assistente IA no ar, porta", PORT));
