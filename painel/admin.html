@@ -56,6 +56,12 @@
     <thead><tr><th>Tipo</th><th>Pagina</th><th>Elemento / Email</th><th>IP</th><th>Quando</th></tr></thead>
     <tbody id="tabela"></tbody>
   </table>
+
+  <h2 style="margin:28px 0 12px; font-size:18px;">Leads (contatos do chat)</h2>
+  <table>
+    <thead><tr><th>Nome</th><th>E-mail</th><th>Telefone/WhatsApp</th><th>Mensagem</th><th>Quando</th></tr></thead>
+    <tbody id="tabelaLeads"></tbody>
+  </table>
 </div>
 
 <script>
@@ -81,6 +87,16 @@ function carregar() {
         return '<tr><td><span class="tipo '+e.tipo+'">'+e.tipo+'</span></td><td>'+e.pagina+'</td><td>'+info+'</td><td>'+(e.ip||'')+'</td><td>'+quando+'</td></tr>';
       }).join('');
       document.getElementById('tabela').innerHTML = linhas || '<tr><td colspan="5">Sem eventos ainda</td></tr>';
+      return fetch('/api/leads?senha=' + encodeURIComponent(senha));
+    })
+    .then(r => r && r.json())
+    .then(dl => {
+      if (!dl) return;
+      var ll = (dl.leads||[]).map(function(l){
+        var quando = new Date(l.data).toLocaleString('pt-BR');
+        return '<tr><td>'+(l.nome||'')+'</td><td>'+(l.email||'')+'</td><td>'+(l.telefone||'')+'</td><td>'+(l.mensagem||'')+'</td><td>'+quando+'</td></tr>';
+      }).join('');
+      document.getElementById('tabelaLeads').innerHTML = ll || '<tr><td colspan="5">Nenhum lead ainda</td></tr>';
     })
     .catch(() => alert('Erro ao conectar'));
 }
